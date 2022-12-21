@@ -1,0 +1,12 @@
+alias l="ls --color=auto"
+alias ls="ls --color=auto"
+alias la="ls -a --color=auto"
+alias ll="ls -l --color=auto"
+alias cl="clear && ls --color=auto"
+alias cla="clear && ls -a --color=auto"
+alias c="clear"
+alias q="exit"
+alias grep="grep --color=auto"
+
+alias dc="docker-compose"
+alias dls="dyn-liveserve"
