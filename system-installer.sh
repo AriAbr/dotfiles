@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
 
 # Utils
-install(){
+install() {
 	local pkgName="installers/$1.shlib"
 	(source $pkgName && install)
 }
 
-spinner(){
+spinner() {
 	# TODO: add verbose override
 	echo "$*..."
 	temp=$(mktemp)
-	eval "$*" >  "$temp" 2>&1
+	eval "$*" >"$temp" 2>&1
 	if [[ "$?" -ne 0 ]]; then
 		cat "$temp"
 		exit 1
@@ -19,15 +19,15 @@ spinner(){
 }
 # source: https://unix.stackexchange.com/a/267730 with some personal modifications
 center() {
-  termwidth="$(tput cols)"
-  padding="$(printf '%0.1s' ={1..500})"
-  printf '%s%*.*s %s %*.*s%s\n' "$(tput bold)$(tput setab 4)" 0 "$(((termwidth-2-${#1})/2))" "$padding" "$1" 0 "$(((termwidth-1-${#1})/2))" "$padding" "$(tput sgr0)"
+	termwidth="$(tput cols)"
+	padding="$(printf '%0.1s' ={1..500})"
+	printf '%s%*.*s %s %*.*s%s\n' "$(tput bold)$(tput setab 4)" 0 "$(((termwidth - 2 - ${#1}) / 2))" "$padding" "$1" 0 "$(((termwidth - 1 - ${#1}) / 2))" "$padding" "$(tput sgr0)"
 }
 
 # Install system packages
 # note we don't need git since you already have it in order to have cloned this
 # repo
-install_prereqs(){
+install_prereqs() {
 	sudo apt update
 	sudo apt install -y \
 		stow \
@@ -42,7 +42,7 @@ spinner install_prereqs
 
 center "Installing modules"
 # TODO: gh cli
-# TODO: 
+# TODO: flameshot
 spinner install core.fzf
 spinner install core.node_18
 spinner install core.vpn
@@ -58,6 +58,8 @@ center "Stowing Dotfiles"
 spinner stow bash
 spinner stow git
 spinner stow scripts-shared
+# TODO: setup system bins
+# spinner stow scripts-system
 
 center "Install node dependencies for scripts"
 spinner "(cd scripts-shared/.local/bin && yarn install)"
@@ -86,11 +88,13 @@ if [[ ! -f ".first_run" ]]; then
 	## Jira Api Token
 	center "Jira Setup"
 	xdg-open https://id.atlassian.com/manage-profile/security/api-tokens 2>/dev/null
-	echo "Click 'Create API token' and copy it to your clipboard by pressing 'Copy'" 
+	echo "Click 'Create API token' and copy it to your clipboard by pressing 'Copy'"
 	read -p "Press enter when you have it in your clipboard..."
 	xclip -sel clip -o | pass insert --echo jira_api_token
-	# TODO: get user email as well
 	echo "Saved it to your password store as jira_api_token!"
+	read -p "Enter in your dynamics email" dynamicsEmail
+	echo "$dynamicsEmail" | pass insert --echo jira_api_user
+	echo "Saved it to your password store as jira_api_user!"
 	echo ""
 
 	## Github Personal Access Token (PAT)
@@ -109,9 +113,9 @@ if [[ ! -f ".first_run" ]]; then
 	# TODO: clone enviro and install local dev
 
 	center "Setup Core Projects"
-	projects=( 
-		"medicaid-application" 
-		"talent-acquisition" 
+	projects=(
+		"medicaid-application"
+		"talent-acquisition"
 		"dynamics-cas"
 		"dynamics-graph"
 		"centers-sites"
@@ -137,11 +141,13 @@ if [[ ! -f ".first_run" ]]; then
 	# echo "After it opens "
 	# read -p "Press enter after you have connected to the VPN"
 
+	echo "Changing git remote to ssh"
+	git remote set-url origin "$(git remote get-url origin | sed -E 's;https://github.com/;git@github.com:;')"
+
+	docker loging ghci.io -u "$(pass jira_api_user)" -p "$(pass github_pat)"
+
 	echo "All DONE!"
 	read -p "System will logout now, press enter..."
 	touch .first_run
 	gnome-session-quit --no-prompt
-	# TODO: convert https ~> ssh
-	# TODO: have it do a docker login also
-
 fi
