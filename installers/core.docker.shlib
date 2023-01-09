@@ -1,14 +1,15 @@
 install(){
-    # TODO: add a install guard
-   sudo apt install -y \
-   docker.io \
-   docker-compose \
-   ca-certificates \
-   openssl 
-   
-   sudo groupadd docker
-   	sudo usermod -aG docker "$USER"
-	sudo systemctl enable docker
-    # FIXME: this doesn't work
-    #sudo newgrp docker
+    if ! command -v docker &>/dev/null || ! command -v docker-compose &>/dev/null; then
+        sudo apt install -y \
+            docker.io \
+            docker-compose \
+            ca-certificates \
+            openssl
+
+            sudo groupadd docker
+   	        sudo usermod -aG docker "$USER"
+	        sudo systemctl enable docker
+        # FIXME: this doesn't work
+        #sudo newgrp docker
+    fi
 }
