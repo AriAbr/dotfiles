@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+#==================================================
+# SETUP DEBUGGING AND SAFETY FLAGS
+#==================================================
+set -o errexit  # exit script on error
+set -o pipefail # exit when a script in a pipeline fails
+set -o nounset  # don't allow unset variables
+
+# Warn if fzf not installed
+if ! [[ -x "$(command -v fzf)" ]]; then
+	echo 'MISSING DEPENDENCY: fzf'
+	echo 'To setup git-j, see https://valmardynamics.atlassian.net/wiki/spaces/DKB/pages/934445057/Setup+git+j'
+	exit
+fi
+
+BRANCH="$(jira_checkout 2>/dev/null | fzf --no-preview | cut -f1 -d':')"
+
+[ ! "$BRANCH" = "''" ] && (git jchk "$BRANCH") || echo Canceled

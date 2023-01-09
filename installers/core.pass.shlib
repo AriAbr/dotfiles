@@ -1,0 +1,16 @@
+install(){
+    if ! command -v pass &>/dev/null; then
+    sudo apt install pass -y
+    gpg --batch --gen-key <<EOF
+Key-Type: 1
+Key-Length: 2048
+Subkey-Type: 1
+Subkey-Length: 2048
+Name-Real: Root Superuser
+Name-Email: $USER@dynamics.com
+Expire-Date: 0
+EOF
+
+pass init $(gpg --list-keys | grep -E '^ ' |  xargs)
+fi
+}

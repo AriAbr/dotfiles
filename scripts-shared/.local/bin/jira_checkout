@@ -1,0 +1,17 @@
+#!/usr/bin/env node
+
+const { jiraApiAutoPage } = require("./lib/jira_utils");
+
+const printIssuesInCurrentSprint = (issues) =>
+    issues.map((issue) =>
+        console.log(
+            `${issue.key}: (${issue.fields.components
+                .map((c) => c.name)
+                .join(",")}){${issue.fields.customfield_10024}} ${issue.fields.summary}`
+        )
+    );
+
+jiraApiAutoPage(
+    'sprint in openSprints() and project = "Dynamics Development"',
+    printIssuesInCurrentSprint
+);

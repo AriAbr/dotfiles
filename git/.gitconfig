@@ -1,0 +1,36 @@
+[init]
+    defaultBranch = master
+
+[user]
+	name = <YOUR FULL NAME>
+	email = <YOUR EMAIL ADDRESS USED IN YOUR GITHUB ACCOUNT>
+
+[github]
+    user = <YOUR GITHUB USERNAME>
+
+[core]
+	autocrlf = input
+	excludesfile = ~/.gitignore
+
+[status]
+    submoduleSummary = true
+
+[push]
+    followTags = true
+
+[diff]
+    submodule = log
+
+[fetch]
+    recurseSubmodules = on-demand
+
+[commit]
+    verbose = true
+    template = ~/.git-commit-template
+
+[alias]
+    unstage = "reset HEAD --"
+    pam="!git checkout $(git branch | sed -e 's/\\*//' | fzf)"
+
+[mergetool]
+	keepBackup = false

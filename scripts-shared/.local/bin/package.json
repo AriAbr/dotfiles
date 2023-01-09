@@ -1,0 +1,9 @@
+{
+    "name": "dotfiles",
+    "version": "1.0.0",
+    "license": "MIT",
+    "private": true,
+    "dependencies": {
+        "axios": "^0.21.1"
+    }
+}
