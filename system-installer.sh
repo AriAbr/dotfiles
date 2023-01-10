@@ -57,8 +57,13 @@ if [[ ! -f ".first_run" ]]; then
 
 	# TODO: clean these up
 	# TODO: Differentiate output from user notices
+	center "Setting up SSH keys"
 	wizards.setupSSH
+
+	center "Jira Setup"
 	wizards.setupJiraAPIKey
+
+	center "Github PAT Setup"
 	wizards.setupPAT
 
 	center "Setup Local Dev Environment"

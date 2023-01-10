@@ -1,6 +1,6 @@
 wizards.setupSSH(){
+
 	## SSH Keys
-	center "Setting up SSH keys"
 	ssh-keygen -q -t rsa -N '' -f ~/.ssh/id_rsa <<<y >/dev/null 2>&1
 	ssh-add ~/.ssh/id_rsa
 	cat ~/.ssh/id_rsa.pub | xclip -sel clip
@@ -16,7 +16,6 @@ wizards.setupSSH(){
 
 wizards.setupJiraAPIKey(){
 	## Jira Api Token
-	center "Jira Setup"
 	xdg-open https://id.atlassian.com/manage-profile/security/api-tokens 2>/dev/null
 	echo "Click 'Create API token' and copy it to your clipboard by pressing 'Copy'"
 	read -p "Press enter when you have it in your clipboard..."
@@ -30,7 +29,6 @@ wizards.setupJiraAPIKey(){
 
 wizards.setupPAT(){
 	## Github Personal Access Token (PAT)
-	center "Github PAT Setup"
 	echo "Great! Now let's setup your Github Personal Access Token (PAT)"
 	echo "Browser will open, create the token with 'write:packages'"
 	echo "You can make the expiration date 'No Expiration'"
