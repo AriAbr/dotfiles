@@ -4,19 +4,25 @@ install() {
 	(source $pkgName && install)
 }
 spinner() {
-	# TODO: add verbose override
-	echo "$*..."
-	temp=$(mktemp)
-	eval "$*" >"$temp" 2>&1
-	if [[ "$?" -ne 0 ]]; then
-		cat "$temp"
-		exit 1
+	if [[ -n $VERBOSE ]]; then
+	    eval "$*"
+	else
+	    echo "$*..."
+	    temp=$(mktemp)
+	    eval "$*" >"$temp" 2>&1
+	    if [[ "$?" -ne 0 ]]; then
+		    cat "$temp"
+		    exit 1
+	    fi
+	    echo -e "\e[1A\e[K$* DONE"
 	fi
-	echo -e "\e[1A\e[K$* DONE"
 }
 # source: https://unix.stackexchange.com/a/267730 with some personal modifications
 center() {
 	termwidth="$(tput cols)"
 	padding="$(printf '%0.1s' ={1..500})"
 	printf '%s%*.*s %s %*.*s%s\n' "$(tput bold)$(tput setab 4)" 0 "$(((termwidth - 2 - ${#1}) / 2))" "$padding" "$1" 0 "$(((termwidth - 1 - ${#1}) / 2))" "$padding" "$(tput sgr0)"
+}
+echom(){
+    printf '%s%s%s\n' "$(tput setaf 3)$(tput sitm)" "$1" "$(tput sgr0)"
 }
