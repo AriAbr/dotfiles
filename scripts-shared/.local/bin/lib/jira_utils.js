@@ -4,7 +4,7 @@ const { exit } = require('process');
 
 exports.BASE_URL = "https://valmardynamics.atlassian.net/rest/api/2/search";
 exports.TIKVA = "557058:72872a8c-d400-431d-834f-64988a6171a9";
-exports.API_KEY = passGet("jira_api_key")
+exports.API_KEY = passGet("jira_api_token")
 exports.API_USER = passGet("jira_api_user")
 
 const axiosConfig = (jql, fields, overrides = {}) => ({
