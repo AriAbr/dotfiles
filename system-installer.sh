@@ -22,8 +22,7 @@ center "Installing pre-reqs"
 spinner install_prereqs
 
 center "Installing modules"
-# TODO: gh cli
-# TODO: flameshot
+spinner install core.gh
 spinner install core.fzf
 spinner install core.node_18
 spinner install core.vpn
