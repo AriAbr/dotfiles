@@ -9,7 +9,7 @@ install(){
             sudo groupadd docker
    	        sudo usermod -aG docker "$USER"
 	        sudo systemctl enable docker
-        # FIXME: this doesn't work
-        #sudo newgrp docker
+        # FIXME: this doesn't work because it starts a subshell
+        # sudo newgrp docker
     fi
 }
