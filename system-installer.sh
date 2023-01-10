@@ -68,70 +68,24 @@ if [[ ! -f ".first_run" ]]; then
 
 	center "Setup Local Dev Environment"
 	mkdir -p ~/dev
+
 	cd ~/dev
+
 	# TODO: split out .env files into .env repo
-	# TODO: create a .env repo to share .env files and clone
-	# git clone git@github.com:Centers-health/.env.git
+	git clone git@github.com:Centers-health/.env.git
 
 	git clone git@github.com:Centers-health/enviro.git
 	(cd enviro/envs/lde && make install)
 
 	# TODO: Test that these setups work
 	center "Setup Core Projects"
-	git clone git@github.com:Centers-health/medicaid-application.git
-	(
-		cd medicaid-application
-		cp ~/dev/.env/medicaid-application.env .env
-		docker-compose run --rm web make install
-		docker-compose run --rm web poetry run python manage.py seed_db
-		docker-compose run --rm web poetry run sh -c 'python echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser(\"docker\", \"docker@docker.com\", \"docker\")" | python manage.py shell'
-		docker-compose up -d
-	)
-	git clone git@github.com:Centers-health/talent-acquisition.git
-	cp ~/dev/.env/talent-acquisition.env .env
-	(
-		cd talent-acquisition
-		cp ~/dev/.env/talent-acquisition.env .env
-		docker-compose run --rm web make install
-		docker-compose run --rm web poetry run python manage.py seed_db
-		docker-compose run --rm web poetry run sh -c 'python echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser(\"docker\", \"docker@docker.com\", \"docker\")" | python manage.py shell'
-		docker-compose up -d
-	)
-	git clone git@github.com:Centers-health/centers-sites.git
-	(
-		cd centers-sites
-		cp ~/dev/.env/centers-sites.env .env
-		docker-compose run --rm web make install
-		docker-compose run --rm web poetry run python manage.py seed_db
-		docker-compose run --rm web poetry run sh -c 'python echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser(\"docker\", \"docker@docker.com\", \"docker\")" | python manage.py shell'
-		docker-compose up -d
-	)
-	git clone git@github.com:Centers-health/dynamics-cas.git
-	(
-		cd dynamics-cas
-		cp ~/dev/.env/dynamics-cas.env .env
-		docker-compose run --rm web make install
-		docker-compose run --rm web poetry run python manage.py seed_db
-		docker-compose run --rm web poetry run sh -c 'python echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser(\"docker\", \"docker@docker.com\", \"docker\")" | python manage.py shell'
-		docker-compose up -d
-	)
-	git clone git@github.com:Centers-health/mentor-program.git
-	(
-		cd dynamics-cas
-		cp ~/dev/.env/dynamics-cas.env .env
-		docker-compose run --rm web poetry install
-		docker-compose run --rm web poetry run sh -c "cd mentor-program && python manage.py migrate"
-		docker-compose run --rm web poetry run sh -c 'cd mentor-program && python echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser(\"docker\", \"docker@docker.com\", \"docker\")" | python manage.py shell'
-		docker-compose run --rm web poetry run sh -c "cd mentor-program && python manage.py seed_db"
-		docker-compose up -d
-	)
-	git clone git@github.com:Centers-health/dynamics-graph.git
-	(
-		cd dynamics-graph
-		cp ~/dev/.env/dynamics-graph.env .env
-		docker-compose run --rm web yarn install
-		docker-compose up -d
-	)
+	source ./lib/bootstrap.shlib
+	bootstrap.medicaid-application
+	bootstrap.mentor-program
+	bootstrap.talent-acquisition
+	bootstrap.dynamics-cas
+	bootstrap.dynamics-graph
+	bootstrap.centers-sites
 
 	# TODO: move these into a conlfuence getting started doc, not needed here
 	# center "Setup VSCODE"

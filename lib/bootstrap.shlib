@@ -1,25 +1,66 @@
-# TODO: fill these in
-bootstrap.envs(){
-
-}
-bootstrap.local-dev-environment(){
-
-}
 bootstrap.mentor-program(){
-
+	git clone git@github.com:Centers-health/mentor-program.git
+	(
+		cd mentor-program
+		cp ~/dev/.env/dynamics-cas.env .env
+		docker-compose run --rm web poetry install
+		docker-compose run --rm web poetry run sh -c "cd mentor-program && python manage.py migrate"
+		docker-compose run --rm web poetry run sh -c 'cd mentor-program && python echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser(\"docker\", \"docker@docker.com\", \"docker\")" | python manage.py shell'
+		docker-compose run --rm web poetry run sh -c "cd mentor-program && python manage.py seed_db"
+		docker-compose up -d
+	)
 }
 bootstrap.talent-acquisition(){
-
+	git clone git@github.com:Centers-health/talent-acquisition.git
+	cp ~/dev/.env/talent-acquisition.env .env
+	(
+		cd talent-acquisition
+		cp ~/dev/.env/talent-acquisition.env .env
+		docker-compose run --rm web make install
+		docker-compose run --rm web poetry run python manage.py seed_db
+		docker-compose run --rm web poetry run sh -c 'python echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser(\"docker\", \"docker@docker.com\", \"docker\")" | python manage.py shell'
+		docker-compose up -d
+	)
 }
 bootstrap.medicaid-application(){
-
+	git clone git@github.com:Centers-health/medicaid-application.git
+	(
+		cd medicaid-application
+		cp ~/dev/.env/medicaid-application.env .env
+		docker-compose run --rm web make install
+		docker-compose run --rm web poetry run python manage.py seed_db
+		docker-compose run --rm web poetry run sh -c 'python echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser(\"docker\", \"docker@docker.com\", \"docker\")" | python manage.py shell'
+		docker-compose up -d
+	)
 }
 bootstrap.dynamics-cas(){
-
+	git clone git@github.com:Centers-health/dynamics-cas.git
+	(
+		cd dynamics-cas
+		cp ~/dev/.env/dynamics-cas.env .env
+		docker-compose run --rm web make install
+		docker-compose run --rm web poetry run python manage.py seed_db
+		docker-compose run --rm web poetry run sh -c 'python echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser(\"docker\", \"docker@docker.com\", \"docker\")" | python manage.py shell'
+		docker-compose up -d
+	)
 }
 bootstrap.dynamics-graph(){
-
+	git clone git@github.com:Centers-health/dynamics-graph.git
+	(
+		cd dynamics-graph
+		cp ~/dev/.env/dynamics-graph.env .env
+		docker-compose run --rm web yarn install
+		docker-compose up -d
+	)
 }
 bootstrap.centers-sites(){
-
+	git clone git@github.com:Centers-health/centers-sites.git
+	(
+		cd centers-sites
+		cp ~/dev/.env/centers-sites.env .env
+		docker-compose run --rm web make install
+		docker-compose run --rm web poetry run python manage.py seed_db
+		docker-compose run --rm web poetry run sh -c 'python echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser(\"docker\", \"docker@docker.com\", \"docker\")" | python manage.py shell'
+		docker-compose up -d
+	)
 }
