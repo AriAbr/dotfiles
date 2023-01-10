@@ -37,6 +37,7 @@ spinner install fonts.firacode
 center "Stowing Dotfiles"
 spinner stow bash
 spinner stow git
+spinner stow starship
 spinner stow scripts-shared
 # TODO: setup system bins
 # - dyn-liveserve
