@@ -1,28 +1,8 @@
 #!/usr/bin/env bash
 
-# Utils
-install() {
-	local pkgName="installers/$1.shlib"
-	(source $pkgName && install)
-}
+source ./lib/utils.shlib
 
-spinner() {
-	# TODO: add verbose override
-	echo "$*..."
-	temp=$(mktemp)
-	eval "$*" >"$temp" 2>&1
-	if [[ "$?" -ne 0 ]]; then
-		cat "$temp"
-		exit 1
-	fi
-	echo -e "\e[1A\e[K$* DONE"
-}
-# source: https://unix.stackexchange.com/a/267730 with some personal modifications
-center() {
-	termwidth="$(tput cols)"
-	padding="$(printf '%0.1s' ={1..500})"
-	printf '%s%*.*s %s %*.*s%s\n' "$(tput bold)$(tput setab 4)" 0 "$(((termwidth - 2 - ${#1}) / 2))" "$padding" "$1" 0 "$(((termwidth - 1 - ${#1}) / 2))" "$padding" "$(tput sgr0)"
-}
+SCRIPT_DIR="$PWD"
 
 # Install system packages
 # note we don't need git since you already have it in order to have cloned this
@@ -59,6 +39,8 @@ spinner stow bash
 spinner stow git
 spinner stow scripts-shared
 # TODO: setup system bins
+# - dyn-liveserve
+# - dyn-lde
 # spinner stow scripts-system
 
 center "Install node dependencies for scripts"
@@ -71,59 +53,80 @@ center "Reloading terminal environment"
 source ~/.bashrc
 
 if [[ ! -f ".first_run" ]]; then
-	## SSH Keys
-	center "Setting up SSH keys"
-	ssh-keygen -q -t rsa -N '' -f ~/.ssh/id_rsa <<<y >/dev/null 2>&1
-	ssh-add ~/.ssh/id_rsa
-	cat ~/.ssh/id_rsa.pub | xclip -sel clip
-	echo "SSH key created and copied to clipboard"
-	echo "Paste it in the 'key' field in the form that opens in your browser"
-	echo "Opening browser..."
-	xdg-open https://github.com/settings/ssh/new 2>/dev/null
-	echo ""
-	read -p "After you've saved the key, press enter to continue..."
-	echo "Great!"
-	echo "Now, let's setup your jira api token"
+	source ./lib/wizards.shlib
 
-	## Jira Api Token
-	center "Jira Setup"
-	xdg-open https://id.atlassian.com/manage-profile/security/api-tokens 2>/dev/null
-	echo "Click 'Create API token' and copy it to your clipboard by pressing 'Copy'"
-	read -p "Press enter when you have it in your clipboard..."
-	xclip -sel clip -o | pass insert --echo jira_api_token
-	echo "Saved it to your password store as jira_api_token!"
-	read -p "Enter in your dynamics email" dynamicsEmail
-	echo "$dynamicsEmail" | pass insert --echo jira_api_user
-	echo "Saved it to your password store as jira_api_user!"
-	echo ""
-
-	## Github Personal Access Token (PAT)
-	center "Github PAT Setup"
-	echo "Great! Now let's setup your Github Personal Access Token (PAT)"
-	echo "Browser will open, create the token with 'write:packages'"
-	echo "You can make the expiration date 'No Expiration'"
-	xdg-open https://github.com/settings/tokens/new 2>/dev/null
-	echo "Copy it to your clipboard (can press the thing next to it that looks like two overlapping squares)"
-	read -p "After you have it copied to clipboard, press enter..."
-	xclip -sel clip -o | pass insert --echo github_pat
-	echo "Saved it to your password store as github_pat!"
+	# TODO: clean these up
+	# TODO: Differentiate output from user notices
+	wizards.setupSSH
+	wizards.setupJiraAPIKey
+	wizards.setupPAT
 
 	center "Setup Local Dev Environment"
-	# TODO: move lde to enviro
-	# TODO: clone enviro and install local dev
-
-	center "Setup Core Projects"
-	projects=(
-		"medicaid-application"
-		"talent-acquisition"
-		"dynamics-cas"
-		"dynamics-graph"
-		"centers-sites"
-		"mentor-program"
-	)
 	mkdir -p ~/dev
-	# TODO: clone mentor, ar, talent, cas graph
+	cd ~/dev
+	# TODO: split out .env files into .env repo
 	# TODO: create a .env repo to share .env files and clone
+	# ssh_clone .env
+
+	ssh_clone enviro
+	(cd enviro/envs/lde && make install)
+
+	# TODO: Test that these setups work
+	center "Setup Core Projects"
+	ssh_clone medicaid-application
+	(
+		cd medicaid-application
+		cp ~/dev/.env/medicaid-application.env .env
+		docker-compose run --rm web make install
+		docker-compose run --rm web poetry run python manage.py seed_db
+		docker-compose run --rm web poetry run sh -c 'python echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser(\"docker\", \"docker@docker.com\", \"docker\")" | python manage.py shell'
+		docker-compose up -d
+	)
+	ssh_clone talent-acquisition
+	cp ~/dev/.env/talent-acquisition.env .env
+	(
+		cd talent-acquisition
+		cp ~/dev/.env/talent-acquisition.env .env
+		docker-compose run --rm web make install
+		docker-compose run --rm web poetry run python manage.py seed_db
+		docker-compose run --rm web poetry run sh -c 'python echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser(\"docker\", \"docker@docker.com\", \"docker\")" | python manage.py shell'
+		docker-compose up -d
+	)
+	ssh_clone centers-sites
+	(
+		cd centers-sites
+		cp ~/dev/.env/centers-sites.env .env
+		docker-compose run --rm web make install
+		docker-compose run --rm web poetry run python manage.py seed_db
+		docker-compose run --rm web poetry run sh -c 'python echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser(\"docker\", \"docker@docker.com\", \"docker\")" | python manage.py shell'
+		docker-compose up -d
+	)
+	ssh_clone dynamics-cas
+	(
+		cd dynamics-cas
+		cp ~/dev/.env/dynamics-cas.env .env
+		docker-compose run --rm web make install
+		docker-compose run --rm web poetry run python manage.py seed_db
+		docker-compose run --rm web poetry run sh -c 'python echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser(\"docker\", \"docker@docker.com\", \"docker\")" | python manage.py shell'
+		docker-compose up -d
+	)
+	ssh_clone mentor-program
+	(
+		cd dynamics-cas
+		cp ~/dev/.env/dynamics-cas.env .env
+		docker-compose run --rm web poetry install
+		docker-compose run --rm web poetry run sh -c "cd mentor-program && python manage.py migrate"
+		docker-compose run --rm web poetry run sh -c 'cd mentor-program && python echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser(\"docker\", \"docker@docker.com\", \"docker\")" | python manage.py shell'
+		docker-compose run --rm web poetry run sh -c "cd mentor-program && python manage.py seed_db"
+		docker-compose up -d
+	)
+	ssh_clone dynamics-graph
+	(
+		cd dynamics-graph
+		cp ~/dev/.env/dynamics-graph.env .env
+		docker-compose run --rm web yarn install
+		docker-compose up -d
+	)
 
 	# TODO: move these into a conlfuence getting started doc, not needed here
 	# center "Setup VSCODE"
@@ -141,6 +144,7 @@ if [[ ! -f ".first_run" ]]; then
 	# echo "After it opens "
 	# read -p "Press enter after you have connected to the VPN"
 
+	cd "$SCRIPT_DIR"
 	echo "Changing git remote to ssh"
 	git remote set-url origin "$(git remote get-url origin | sed -E 's;https://github.com/;git@github.com:;')"
 

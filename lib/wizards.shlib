@@ -1,0 +1,42 @@
+wizards.setupSSH(){
+	## SSH Keys
+	center "Setting up SSH keys"
+	ssh-keygen -q -t rsa -N '' -f ~/.ssh/id_rsa <<<y >/dev/null 2>&1
+	ssh-add ~/.ssh/id_rsa
+	cat ~/.ssh/id_rsa.pub | xclip -sel clip
+	echo "SSH key created and copied to clipboard"
+	echo "Paste it in the 'key' field in the form that opens in your browser"
+	echo "Opening browser..."
+	xdg-open https://github.com/settings/ssh/new 2>/dev/null
+	echo ""
+	read -p "After you've saved the key, press enter to continue..."
+	echo "Great!"
+	echo "Now, let's setup your jira api token"
+}
+
+wizards.setupJiraAPIKey(){
+	## Jira Api Token
+	center "Jira Setup"
+	xdg-open https://id.atlassian.com/manage-profile/security/api-tokens 2>/dev/null
+	echo "Click 'Create API token' and copy it to your clipboard by pressing 'Copy'"
+	read -p "Press enter when you have it in your clipboard..."
+	xclip -sel clip -o | pass insert --echo jira_api_token
+	echo "Saved it to your password store as jira_api_token!"
+	read -p "Enter in your dynamics email" dynamicsEmail
+	echo "$dynamicsEmail" | pass insert --echo jira_api_user
+	echo "Saved it to your password store as jira_api_user!"
+	echo ""
+}
+
+wizards.setupPAT(){
+	## Github Personal Access Token (PAT)
+	center "Github PAT Setup"
+	echo "Great! Now let's setup your Github Personal Access Token (PAT)"
+	echo "Browser will open, create the token with 'write:packages'"
+	echo "You can make the expiration date 'No Expiration'"
+	xdg-open https://github.com/settings/tokens/new 2>/dev/null
+	echo "Copy it to your clipboard (can press the thing next to it that looks like two overlapping squares)"
+	read -p "After you have it copied to clipboard, press enter..."
+	xclip -sel clip -o | pass insert --echo github_pat
+	echo "Saved it to your password store as github_pat!"
+}
