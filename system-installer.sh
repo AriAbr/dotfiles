@@ -71,14 +71,14 @@ if [[ ! -f ".first_run" ]]; then
 	cd ~/dev
 	# TODO: split out .env files into .env repo
 	# TODO: create a .env repo to share .env files and clone
-	# ssh_clone .env
+	# git clone git@github.com:Centers-health/.env.git
 
-	ssh_clone enviro
+	git clone git@github.com:Centers-health/enviro.git
 	(cd enviro/envs/lde && make install)
 
 	# TODO: Test that these setups work
 	center "Setup Core Projects"
-	ssh_clone medicaid-application
+	git clone git@github.com:Centers-health/medicaid-application.git
 	(
 		cd medicaid-application
 		cp ~/dev/.env/medicaid-application.env .env
@@ -87,7 +87,7 @@ if [[ ! -f ".first_run" ]]; then
 		docker-compose run --rm web poetry run sh -c 'python echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser(\"docker\", \"docker@docker.com\", \"docker\")" | python manage.py shell'
 		docker-compose up -d
 	)
-	ssh_clone talent-acquisition
+	git clone git@github.com:Centers-health/talent-acquisition.git
 	cp ~/dev/.env/talent-acquisition.env .env
 	(
 		cd talent-acquisition
@@ -97,7 +97,7 @@ if [[ ! -f ".first_run" ]]; then
 		docker-compose run --rm web poetry run sh -c 'python echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser(\"docker\", \"docker@docker.com\", \"docker\")" | python manage.py shell'
 		docker-compose up -d
 	)
-	ssh_clone centers-sites
+	git clone git@github.com:Centers-health/centers-sites.git
 	(
 		cd centers-sites
 		cp ~/dev/.env/centers-sites.env .env
@@ -106,7 +106,7 @@ if [[ ! -f ".first_run" ]]; then
 		docker-compose run --rm web poetry run sh -c 'python echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser(\"docker\", \"docker@docker.com\", \"docker\")" | python manage.py shell'
 		docker-compose up -d
 	)
-	ssh_clone dynamics-cas
+	git clone git@github.com:Centers-health/dynamics-cas.git
 	(
 		cd dynamics-cas
 		cp ~/dev/.env/dynamics-cas.env .env
@@ -115,7 +115,7 @@ if [[ ! -f ".first_run" ]]; then
 		docker-compose run --rm web poetry run sh -c 'python echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser(\"docker\", \"docker@docker.com\", \"docker\")" | python manage.py shell'
 		docker-compose up -d
 	)
-	ssh_clone mentor-program
+	git clone git@github.com:Centers-health/mentor-program.git
 	(
 		cd dynamics-cas
 		cp ~/dev/.env/dynamics-cas.env .env
@@ -125,7 +125,7 @@ if [[ ! -f ".first_run" ]]; then
 		docker-compose run --rm web poetry run sh -c "cd mentor-program && python manage.py seed_db"
 		docker-compose up -d
 	)
-	ssh_clone dynamics-graph
+	git clone git@github.com:Centers-health/dynamics-graph.git
 	(
 		cd dynamics-graph
 		cp ~/dev/.env/dynamics-graph.env .env
@@ -153,7 +153,7 @@ if [[ ! -f ".first_run" ]]; then
 	echo "Changing git remote to ssh"
 	git remote set-url origin "$(git remote get-url origin | sed -E 's;https://github.com/;git@github.com:;')"
 
-	docker loging ghci.io -u "$(pass jira_api_user)" -p "$(pass github_pat)"
+	docker login ghcr.io -u "$(pass jira_api_user)" -p "$(pass github_pat)"
 
 	echo "All DONE!"
 	read -p "System will logout now, press enter..."
