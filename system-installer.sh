@@ -11,6 +11,7 @@ install_prereqs() {
 	sudo apt update
 	sudo apt install -y \
 		stow \
+		flameshot \
 		xclip \
 		openssh-server \
 		wget \
