@@ -2,11 +2,11 @@ bootstrap.mentor-program(){
 	git clone git@github.com:Centers-health/mentor-program.git
 	(
 		cd mentor-program
-		cp ~/dev/.env/dynamics-cas.env .env
+		cp ~/dev/.env/mentor-program.env .env
 		docker-compose run --rm web poetry install
-		docker-compose run --rm web poetry run sh -c "cd mentor-program && python manage.py migrate"
-		docker-compose run --rm web poetry run sh -c 'cd mentor-program && echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser(\"docker\", \"docker@docker.com\", \"docker\")" | python manage.py shell'
-		docker-compose run --rm web poetry run sh -c "cd mentor-program && python manage.py seed_db"
+		docker-compose run --rm web poetry run sh -c "cd mentor && python manage.py migrate"
+		docker-compose run --rm web poetry run sh -c 'cd mentor && echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser(\"docker\", \"docker@docker.com\", \"docker\")" | python manage.py shell'
+		docker-compose run --rm web poetry run sh -c "cd mentor && python manage.py seed_db"
 		docker-compose up -d
 	)
 }
@@ -39,7 +39,6 @@ bootstrap.dynamics-cas(){
 		cd dynamics-cas
 		cp ~/dev/.env/dynamics-cas.env .env
 		docker-compose run --rm web make install
-		docker-compose run --rm web poetry run python manage.py seed_db
 		docker-compose run --rm web poetry run sh -c 'echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser(\"docker\", \"docker@docker.com\", \"docker\")" | python manage.py shell'
 		docker-compose up -d
 	)
