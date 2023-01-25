@@ -21,7 +21,7 @@ wizards.setupJiraAPIKey(){
 	read -p "Press enter when you have it in your clipboard..."
 	xclip -sel clip -o | pass insert --echo jira_api_token
 	echo "Saved it to your password store as jira_api_token!"
-	read -p "Enter in your dynamics email" dynamicsEmail
+	read -p "Enter in your dynamics email: " dynamicsEmail
 	echo "$dynamicsEmail" | pass insert --echo jira_api_user
 	echo "Saved it to your password store as jira_api_user!"
 	echo ""
