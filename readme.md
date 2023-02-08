@@ -25,10 +25,13 @@ What you need
 ```shell
 sudo apt update && sudo apt install git -y
 # clone the repo with https
-# sudo groupadd docker
-# sudo usermod -aG docker $USER
-# sudo newgrp docker
-# ./system-installer.sh
+sudo groupadd docker
+sudo usermod -aG docker $USER
+# Reboot the computer, this is required on gnome for groups to take effect
+# (don't ask me why)
+sudo reboot now
+# After reboot, run the system installer
+./system-installer.sh
 ```
 ## Personalize the dotfiles
 

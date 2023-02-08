@@ -4,8 +4,8 @@ source ./lib/utils.shlib
 SCRIPT_DIR="$PWD"
 
 center "Installing modules"
-# TODO: gh cli
 spinner install core.fzf
+spinner install core.gh
 spinner install prompts.starship
 
 center "Stowing Dotfiles"
