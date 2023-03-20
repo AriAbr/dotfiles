@@ -1,0 +1,99 @@
+#!/usr/bin/env bash
+
+function _live-serve() {
+    function backup(){
+        echo -n 'Backing up...'
+        mv "$DYNPY_VENV_DIR" "$DYNPY_VENV_DIR-live-serve-backup"
+        echo 'DONE!'
+    }
+
+    function restore {
+        echo -n 'Restoring...'
+
+        for dir in "${BACKUP_DIRS[@]}"
+        do
+            rsync -aI "$dir/"  "${dir//"-live-serve-backup"/}"
+        done
+
+        rm -r "${BACKUP_DIRS[@]}"
+        echo 'DONE!'
+    }
+
+    function validate_package_exists_locally {
+        if [[ ! -d "$DYNPY_LOCAL_DIR" ]]; then
+            echo "cannot find $LOCAL_PROJECT_NAME/$APP_DIR_NAME in dev folder"
+            echo "searced in $PROJECT_PATH"
+            exit 1
+        fi
+    }
+
+    function validate_package_exists_in_venv {
+        if [[ ! -d "$DYNPY_VENV_DIR" ]]; then
+            echo "cannot find $APP_DIR_NAME in .venv folder"
+            echo "searced in $VENV_PATH"
+            echo "You need to install the package."
+            exit 1
+        fi
+    }
+
+    function validate_and_backup {
+        validate_package_exists_locally
+        validate_package_exists_in_venv
+        backup
+        trap restore EXIT
+    }
+
+    # Static variables
+    PROJECT_PATH=~/dev
+    VENV_PATH=.venv/lib/python3.8/site-packages
+
+
+    if ! [[ -x "$(command -v entr)" ]]; then
+        echo 'The program "entr" is required to use live-serve'
+        echo 'To install: run `sudo apt install entr`'
+        return
+    fi
+    if [[ ! -d "./.venv" ]]; then echo 'no .venv found'; return ; fi
+
+    # Arrays to keep track of dirs live serving
+    LIVE_SERVE_DIRS=()
+    BACKUP_DIRS=()
+    DYNPY_VENV_DIRS=()
+
+    if [ $# -eq 0 ]; then
+        args=($(find ~/dev/dynamics-py-* -maxdepth 0 -type d | \
+        sed -n -E 's/^.*-(.*)$/\1/p' | \
+        fzf --prompt="Choose a project(s) to live serve:" --multi --header="Hint: Use tab to multiselect"))
+
+    else
+        args=("$@")
+    fi
+
+    for arg in "${args[@]}"
+    do
+        LOCAL_PROJECT_NAME=dynamics-py-$arg
+        echo "Live serving dynamics-py-$arg"
+
+        # Get app name
+        [[ $arg == "core" ]] && APP_DIR_NAME="dynpy" || APP_DIR_NAME="dynpy_$arg"
+
+
+        DYNPY_LOCAL_DIR="$PROJECT_PATH/$LOCAL_PROJECT_NAME/$APP_DIR_NAME"
+        DYNPY_VENV_DIR=$VENV_PATH/$APP_DIR_NAME
+
+        DYNPY_VENV_DIRS+=("$VENV_PATH/$APP_DIR_NAME")
+        LIVE_SERVE_DIRS+=("$DYNPY_LOCAL_DIR")
+        BACKUP_DIRS+=("$DYNPY_VENV_DIR-live-serve-backup")
+
+        validate_and_backup
+    done
+
+    # Live serve the packages
+    # While loop is needed to track added/deleted files.
+    while true;
+    do
+        printf "%s\n" "${LIVE_SERVE_DIRS[@]}"| xargs -I'{}'  find '{}' | entr -d rsync -av "${LIVE_SERVE_DIRS[@]}" "$VENV_PATH" --delete & wait
+    done;
+}
+
+_live-serve "$@"
