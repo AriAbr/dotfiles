@@ -30,11 +30,7 @@ RUN rm .bashrc
 
 # Stow Dotfiles
 RUN cd dotfiles && pwd &&\
-    stow -R bash \
-    git \
-    starship \
-    scripts-shared \
-    scripts-system
+    stow -R *.stow
 
 RUN cd /home/docker/.local/bin && yarn install
 
