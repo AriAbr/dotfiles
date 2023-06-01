@@ -35,3 +35,10 @@ RUN cd dotfiles && pwd &&\
 RUN cd /home/docker/.local/bin && yarn install
 
 WORKDIR /app
+
+ARG JIRA_API_TOKEN
+ARG JIRA_API_USER
+ARG GITHUB_TOKEN
+ENV JIRA_API_TOKEN=${JIRA_API_TOKEN} \
+	JIRA_API_USER=${JIRA_API_USER} \
+    GITHUB_TOKEN=${GITHUB_TOKEN}
