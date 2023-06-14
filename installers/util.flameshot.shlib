@@ -1,0 +1,34 @@
+install(){
+if ! command -v flameshot &>/dev/null; then
+    sudo nala install --raw-dpkg -y \
+        g++ \
+        cmake \
+        extra-cmake-modules \
+        build-essential \
+        qtbase5-dev \
+        qttools5-dev-tools \
+        qttools5-dev \
+        libqt5dbus5 \
+        libqt5network5 \
+        libqt5core5a \
+        libqt5widgets5 \
+        libqt5gui5 \
+        libqt5svg5-dev
+
+
+mkdir --parents ~/tmp/flameshot_source/
+
+(
+cd ~/tmp/flameshot_source/
+
+
+git clone https://github.com/flameshot-org/flameshot.git
+cd flameshot
+mkdir build
+cd build
+cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local ../
+make
+sudo make install
+)
+fi
+}

@@ -1,5 +1,5 @@
 install(){
-    wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.2.2/FiraCode.zip
+    wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.0/FiraCode.zip
     unzip FiraCode.zip -d ~/.fonts -o
     find ~/.fonts -iname "*windows*" -exec rm '{}' \;
     rm FiraCode.zip

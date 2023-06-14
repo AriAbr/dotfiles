@@ -8,8 +8,8 @@ install(){
 
 		rm -f packages.microsoft.gpg
 
-		sudo apt install apt-transport-https -y
-		sudo apt update
-		sudo apt install code -y
+		sudo nala install --raw-dpkg apt-transport-https -y
+		sudo nala update --raw-dpgk -v
+		sudo nala install --raw-dpkg code -y
 		fi
 }

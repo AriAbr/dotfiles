@@ -48,6 +48,24 @@ control your dotfiles
 
 
 ### Requirements
+=======
+Please fill out the placeholders in the following files.
+
+- `./git/.gitconfig`
+
+**Note - ** we don't store vscode dotfiles, since vscode has a way to sync the config, keybindings, and extensions via github, just set it up there once, and the next time you do a fresh install you can just sync again and have everything as you left it (will also auto sync across machines for you, all linked to your github account.)
+
+### Requirements
+
+#### Github Personal Access Token (PAT)
+#### Jira API Key
+Please setup your jira api key:
+
+1. Go here https://id.atlassian.com/manage-profile/security/api-tokens
+2. `pass add jira_api_key`
+
+###
+>>>>>>> f98bd5b (installer working!)
 
 ## Some house cleaning before installing
 

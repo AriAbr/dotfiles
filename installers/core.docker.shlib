@@ -1,6 +1,6 @@
 install(){
     if ! command -v docker &>/dev/null || ! command -v docker-compose &>/dev/null; then
-        sudo apt install -y \
+        sudo nala install --raw-dpkg -y \
             docker.io \
             docker-compose \
             ca-certificates \

@@ -3,8 +3,8 @@ install(){
 TEMP_DIR=vpn_tmp
 	mkdir $TEMP_DIR
 
-	sudo apt update
-	sudo apt install default-jdk -y
+	sudo nala update --raw-dpgk -v
+	sudo nala install --raw-dpkg default-jdk -y
 	wget https://software.sonicwall.com/CT-NX-VPN%20Clients/CT-12.4.2/ConnectTunnel_Linux64-12.42.00631.tar --output-document connecttunnel-linux64.tar
 	tar -xvf connecttunnel-linux64.tar -C ./$TEMP_DIR
 	cd $TEMP_DIR

@@ -1,0 +1,38 @@
+install () {
+    /usr/lib/apt/apt-helper download-file https://debian.sur5r.net/i3/pool/main/s/sur5r-keyring/sur5r-keyring_2023.02.18_all.deb keyring.deb SHA256:a511ac5f10cd811f8a4ca44d665f2fa1add7a9f09bef238cdfad8461f5239cc4
+	sudo nala install --raw-dpkg ./keyring.deb -y && rm keyring.deb
+	echo "deb http://debian.sur5r.net/i3/ $(grep '^DISTRIB_CODENAME=' /etc/lsb-release | cut -f2 -d=) universe" | sudo tee /etc/apt/sources.list.d/sur5r-i3.list
+	sudo nala update --raw-dpkg
+	sudo nala install --raw-dpkg -y i3
+
+	# Picom
+	sudo nala install -y libxext-dev libxcb1-dev libxcb-damage0-dev libxcb-dpms0-dev libxcb-xfixes0-dev libxcb-shape0-dev libxcb-render-util0-dev libxcb-render0-dev libxcb-randr0-dev libxcb-composite0-dev libxcb-image0-dev libxcb-present-dev libxcb-xinerama0-dev libxcb-glx0-dev libpixman-1-dev libdbus-1-dev libconfig-dev libgl-dev libegl-dev libpcre2-dev libevdev-dev uthash-dev libev-dev libx11-xcb-dev meson
+
+	(
+	cd ~
+	git clone https://github.com/yshui/picom.git
+	cd ~/picom
+	meson setup --buildtype=release . build
+	sudo ninja -C build install
+    )
+
+    (
+    cd ~
+    git clone https://github.com/i3-gnome/i3-gnome.git
+    cd i3-gnome
+    sudo make install
+    )
+
+    (
+	    command -v gnome-pomodoro >/dev/null &&
+		(
+			cd $(mktemp -d) &&
+				$(which git) clone https://github.com/kantord/i3-gnome-pomodoro &&
+				cd i3-gnome-pomodoro &&
+				pip install pygobject pydbus click i3ipc &&
+				sudo rm /usr/bin/i3-gnome-pomodoro >&/dev/null
+			sudo cp pomodoro-client.py /usr/bin/i3-gnome-pomodoro &&
+				/usr/bin/i3-gnome-pomodoro status
+		) || echo "Installation failed. Please make sure you have gnome-pomodoro installed."
+    )
+}

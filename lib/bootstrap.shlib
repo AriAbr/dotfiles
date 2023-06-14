@@ -1,4 +1,5 @@
 bootstrap.mentor-program(){
+[ -d mentor-program ] && echo "mentor-program already bootstrapped" && return 0
 	git clone git@github.com:Centers-health/mentor-program.git
 	(
 		cd mentor-program
@@ -11,6 +12,7 @@ bootstrap.mentor-program(){
 	)
 }
 bootstrap.talent-acquisition(){
+[ -d talent-acquisition ] && echo "talent-acquisition already bootstrapped" && return 0
 	git clone git@github.com:Centers-health/talent-acquisition.git
 	cp ~/dev/.env/talent-acquisition.env .env
 	(
@@ -23,6 +25,7 @@ bootstrap.talent-acquisition(){
 	)
 }
 bootstrap.medicaid-application(){
+[ -d medicaid-application ] && echo "medicaid-application already bootstrapped" && return 0
 	git clone git@github.com:Centers-health/medicaid-application.git
 	(
 		cd medicaid-application
@@ -34,6 +37,7 @@ bootstrap.medicaid-application(){
 	)
 }
 bootstrap.dynamics-cas(){
+[ -d dynamics-cas ] && echo "dynamics-cas already bootstrapped" && return 0
 	git clone git@github.com:Centers-health/dynamics-cas.git
 	(
 		cd dynamics-cas
@@ -44,6 +48,7 @@ bootstrap.dynamics-cas(){
 	)
 }
 bootstrap.dynamics-graph(){
+[ -d dynamics-graph ] && echo "dynamics-graph already bootstrapped" && return 0
 	git clone git@github.com:Centers-health/dynamics-graph.git
 	(
 		cd dynamics-graph
@@ -53,6 +58,7 @@ bootstrap.dynamics-graph(){
 	)
 }
 bootstrap.centers-sites(){
+[ -d centers-sites ] && echo "centers-sites already bootstrapped" && return 0
 	git clone git@github.com:Centers-health/centers-sites.git
 	(
 		cd centers-sites

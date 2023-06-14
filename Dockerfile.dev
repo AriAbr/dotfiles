@@ -2,7 +2,7 @@ FROM ghcr.io/centers-health/dev:latest
 
 # Install fzf
 RUN git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && \
-	~/.fzf/install --all
+    ~/.fzf/install --all
 
 USER root
 
@@ -13,14 +13,14 @@ RUN curl -sS https://starship.rs/install.sh | sh -s -- --yes
 RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg && \
     sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg && \
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null && \
-    sudo apt update && \
-    sudo apt install --no-install-recommends gh -y
+    sudo apt-get update && \
+    sudo apt-get install --no-install-recommends gh -y
 
 # Install Stow
 RUN apt-get update && \
     apt-get install --no-install-recommends stow -y
 
-USER docker 
+USER docker
 WORKDIR /home/docker
 
 # Copy Dotfiles
@@ -29,16 +29,23 @@ COPY --chown=docker:docker . dotfiles/
 RUN rm .bashrc
 
 # Stow Dotfiles
-RUN cd dotfiles && pwd &&\
-    stow -R *.stow
+RUN stow -R --dir=stowables --target=$HOME \
+    bash \
+    git \
+    nvim \
+    scripts-devcontainer \
+    scripts-shared \
+    starship
 
-RUN cd /home/docker/.local/bin && yarn install
+WORKDIR /home/docker/.local/bin
+RUN yarn install
 
 WORKDIR /app
 
 ARG JIRA_API_TOKEN
 ARG JIRA_API_USER
 ARG GITHUB_TOKEN
+
 ENV JIRA_API_TOKEN=${JIRA_API_TOKEN} \
-	JIRA_API_USER=${JIRA_API_USER} \
+    JIRA_API_USER=${JIRA_API_USER} \
     GITHUB_TOKEN=${GITHUB_TOKEN}

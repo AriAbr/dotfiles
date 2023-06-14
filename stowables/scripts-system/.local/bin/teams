@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+# brave-browser --app=https://teams.microsoft.com --new-window
+flatpak run com.github.IsmaelMartinez.teams_for_linux

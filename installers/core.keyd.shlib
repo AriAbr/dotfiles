@@ -1,0 +1,13 @@
+#!vim:set ft=bash
+install(){
+    git clone https://github.com/rvaiya/keyd ~/keyd
+        (cd ~/keyd && \
+        make && sudo make install && \
+        sudo systemctl enable keyd && sudo systemctl start keyd
+        )
+    stow --dir=stowables --target=$HOME keyd
+    sudo ln -svf ~/.config/keyd/default.conf /etc/keyd/
+    sudo systemctl restart keyd
+    sudo usermod -aG keyd $USER
+
+}

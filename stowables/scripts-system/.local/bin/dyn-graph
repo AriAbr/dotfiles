@@ -1,0 +1,115 @@
+#!/usr/bin/env bash
+# vim: ft=bash
+#
+# A script to manage Dynamics Graph
+
+
+# TODO: checks
+#    the statuses of the projects
+#    what branch they are on currently
+#    how many versions (commits) are they out of date
+#    are they missing packages
+#    are they missing migrations from master
+#    are they fast forwardable
+
+# TODO: beautify and streamline script output
+
+# FIX: separate out graph from this list for update race condition
+graphDependencies=(
+    "centers-sites"
+    "dynamics-cas"
+    "medicaid-application"
+    "dynamics-graph"
+)
+check_project_status(){
+    local projectDir="$1"
+    branch="$(git -C "$1" branch | grep '*' | cut -d' ' -f2)"
+    commitsOutOfDate="$(
+    git -C "$1"  fetch --all > /dev/null 2>&1
+    git -C "$1"  log --oneline HEAD..origin/master | wc -l
+    )"
+
+    printf "$(tput bold)${projectDir##*/}$(tput sgr0):$(tput setaf 2)$branch$(tput sgr0):$(tput setaf 4)$commitsOutOfDate changes$(tput sgr0)"
+    git -C "$1"  diff --stat HEAD..origin/master | grep -Eq 'poetry.lock|yarn.lock' && printf ":$(tput bold)$(tput setaf 6)yes$(tput sgr0)" || printf ":$(tput setaf 7)no$(tput sgr0)"
+    git -C "$1"  diff --stat HEAD..origin/master | grep -Eq 'migrations' && printf ":$(tput bold)$(tput setaf 6)yes$(tput sgr0)" || printf ":$(tput setaf 7)no$(tput sgr0)"
+    printf "\n"
+
+}
+print_graph_dependency_status(){
+    table="$(
+    printf "$(tput setaf 7)Project$(tput sgr0):$(tput setaf 7)Branch$(tput sgr0):$(tput setaf 7)Commits$(tput sgr0):$(tput setaf 7)Packages$(tput sgr0):$(tput setaf 7)Migrations$(tput sgr0)\n"
+    for i in "${graphDependencies[@]}"
+    do
+        (t=$(check_project_status ~/dev/"$i"); echo "$t") &
+    done
+    wait
+    )"
+
+    echo "$table" | column -t -s':'
+}
+update_packages_and_run_migrations(){
+    if [[  $(basename $PWD) != "dynamics-graph" ]]; then
+docker-compose run --rm web sh -c "poetry install && poetry run python manage.py migrate"
+else
+    docker-compose run --rm web yarn install
+    fi
+    docker-compose restart
+}
+update_graph_dependencies(){
+    local projectDir="$1"
+    branch="$(git -C "$projectDir" branch | grep '*' | cut -d' ' -f2)"
+    commitsOutOfDate="$(
+    git -C "$projectDir"  fetch --all > /dev/null 2>&1
+    git -C "$projectDir"  log --oneline HEAD..origin/master | wc -l
+    )"
+    # TODO: check up to date?
+    if [[ "$commitsOutOfDate" -eq 0 ]]; then
+        (
+        cd "$projectDir"
+        update_packages_and_run_migrations
+    )
+
+elif [[ "$branch" == "master" ]]; then
+       git -C "$projectDir" reset --hard origin/master
+    (
+    cd "$projectDir"
+    update_packages_and_run_migrations
+)
+elif [[ $(git -C "$projectDir" diff --stat) != '' ]]; then
+    printf "$(tput bold)Unable to update %s, has unstaged changes$(tput sgr0)\n" "${projectDir##*/}"
+else
+    printf "Checking %s...\n" "${projectDir##*/}"
+    read -p "Stay on (b)ranch or switch to (m)aster? [m]? " userChoice
+    if [[ $userChoice != "b" ]]; then
+       git -C "$projectDir" checkout master
+       git -C "$projectDir" reset --hard origin/master
+   else
+       echo "WARNING: you are on your own 🐈"
+    fi
+    (
+    cd "$projectDir"
+    update_packages_and_run_migrations
+)
+
+    fi
+    # TODO: package install + migrations
+    # TODO: make sure the project is running
+
+}
+# TODO: add healthcheck for dynamics graph
+case "$1" in
+    update)
+        for i in "${graphDependencies[@]}"
+        do
+            (update_graph_dependencies ~/dev/"$i" ) &
+        done
+        wait
+        ;;
+        *)
+        print_graph_dependency_status
+        ;;
+esac
+
+# https://valmarsurgical-my.sharepoint.com/personal/aareman_dynamichcsolutions_com/_layouts/15/doc.aspx?sourcedoc={474638ae-2dd9-4ae6-b129-1de7f235041c}&action=edit&or=PrevCreateNew&wdnewandopenct=0
+
+# TODO: filewatcher (just have graph watch instead) 😄

@@ -1,2 +1,10 @@
-scripts/.local/bin/node_modules
+stowables/shared-scripts/.local/bin/node_modules
 .first_run
+stowables/nvim/.config/nvim/vim-sessions
+stowables/nvim/.config/nvim/vim-undo/*
+stowables/nvim/.config/nvim/vim-undo
+stowables/nvim/.config/nvim/plugin/packer_compiled.lua
+stowables/keyd/.config/keyd/app.lock
+stowables/keyd/.config/keyd/app.log
+keyring.deb
+tags

@@ -1,0 +1,5 @@
+[Desktop Entry]
+Name=Peek ffmpeg
+Exec=/usr/bin/peek -b ffmpeg
+Type=Application
+Icon=studio

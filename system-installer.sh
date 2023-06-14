@@ -2,47 +2,70 @@
 
 source ./lib/utils.shlib
 
-SCRIPT_DIR="$PWD"
+export SCRIPT_DIR="$PWD"
 
 # Install system packages
 # note we don't need git since you already have it in order to have cloned this
 # repo
 install_prereqs() {
-	sudo apt update
-	sudo apt install -y \
-		stow \
+	sudo nala install --raw-dpkg -y \
+		cargo \
+		fd-find \
+		feh \
 		flameshot \
-		xclip \
+		gpg \
+		libnotify-bin \
 		openssh-server \
+		python3-pip \
+		sshpass \
+		stow \
+		ffmpeg \
+		tmate \
+		tmux \
 		wget \
-		gpg
+		xclip \
+		zoxide
 
+	ln -svf "$(which fdfind)" ~/.local/bin/fd
 }
+
 center "Installing pre-reqs"
+spinner sudo apt update
+spinner sudo nala install --raw-dpkg -y nala
 spinner install_prereqs
 
 center "Installing modules"
+
+# Shared
 spinner install core.gh
 spinner install core.fzf
+spinner install util.flameshot
 spinner install core.node_18
 spinner install core.vpn
 spinner install core.pass
 spinner install core.docker
 spinner install apps.vscode
 spinner install apps.google-chrome
-spinner install apps.brave-browser
 spinner install prompts.starship
 spinner install fonts.firacode
 
 center "Stowing Dotfiles"
-spinner stow -R *.stow
 # TODO: setup system bins
 # - dyn-liveserve
 # - dyn-lde
-# spinner stow scripts-system
+
+# Create directories to help with stow
+mkdir -p ~/.local/bin/node_modules
+
+spinner stow --verbose --dir=stowables --target=$HOME \
+	bash \
+	git \
+	scripts-shared \
+	scripts-system \
+	starship
 
 center "Install node dependencies for scripts"
-spinner "(cd scripts-shared/.local/bin && yarn install)"
+spinner "(cd ~/.local/bin && yarn install)"
 
 center "Reloading terminal environment"
 # Reload your bashrc (note, this won't reload what's in bash_profile, so you may
@@ -50,8 +73,8 @@ center "Reloading terminal environment"
 # server)
 source ~/.bashrc
 
+./first-run.sh
 if [[ ! -f ".first_run" ]]; then
-	./first-run.sh
 	touch .first_run
 	read -p "System will logout now, press enter..."
 	gnome-session-quit --no-prompt
