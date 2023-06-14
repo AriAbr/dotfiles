@@ -32,7 +32,6 @@ RUN rm .bashrc
 RUN stow -R --dir=stowables --target=$HOME \
     bash \
     git \
-    nvim \
     scripts-devcontainer \
     scripts-shared \
     starship
