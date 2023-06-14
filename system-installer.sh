@@ -12,7 +12,6 @@ install_prereqs() {
 		cargo \
 		fd-find \
 		feh \
-		flameshot \
 		gpg \
 		libnotify-bin \
 		openssh-server \
