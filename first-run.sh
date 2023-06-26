@@ -14,6 +14,8 @@ wizards.setupJiraAPIKey
 center "Github PAT Setup"
 wizards.setupPAT
 
+docker login ghcr.io -u "$(pass jira_api_user)" -p "$(pass github_pat)"
+
 center "Setup Local Dev Environment"
 mkdir -p ~/dev
 
@@ -50,7 +52,5 @@ mkdir -p ~/dev
 
 echom "Changing git remote to ssh"
 git remote set-url origin "$(git remote get-url origin | sed -E 's;https://github.com/;git@github.com:;')"
-
-docker login ghcr.io -u "$(pass jira_api_user)" -p "$(pass github_pat)"
 
 echom "All DONE!"
