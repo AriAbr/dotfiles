@@ -30,7 +30,7 @@ install_prereqs() {
 
 center "Installing pre-reqs"
 spinner sudo apt update
-spinner sudo nala install --raw-dpkg -y nala
+spinner sudo apt install -y nala
 spinner install_prereqs
 
 center "Installing modules"
