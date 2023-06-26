@@ -6,7 +6,7 @@ sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://b
 
 echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-release.list
 
-sudo nala update --raw-dpgk -v
+sudo nala update --raw-dpkg -v
 
 sudo nala install --raw-dpkg brave-browser -y
 fi
