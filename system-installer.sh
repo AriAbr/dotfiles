@@ -56,7 +56,7 @@ center "Stowing Dotfiles"
 # Create directories to help with stow
 mkdir -p ~/.local/bin/node_modules
 
-spinner stow --verbose --dir=stowables --target=$HOME \
+spinner stow -v -R -d stowables/ -t "$HOME" \
 	bash \
 	git \
 	scripts-shared \
