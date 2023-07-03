@@ -26,13 +26,19 @@ WORKDIR /home/docker
 # Copy Dotfiles
 COPY --chown=docker:docker . dotfiles/
 
+# Copy over ssh keys
+RUN mkdir $HOME/.ssh/ \
+    && cp -r dotfiles/keypairs/* $HOME/.ssh/ \ 
+    && find $HOME/.ssh/ -type f ! -name "*.pub" -exec chmod 600 {} + \
+    && chmod 644 $HOME/.ssh/*.pub
+
 RUN rm .bashrc
 
 # Stow Dotfiles
+WORKDIR /home/docker/dotfiles
 RUN stow -R --dir=stowables --target=$HOME \
     bash \
     git \
-    scripts-devcontainer \
     scripts-shared \
     starship
 
@@ -48,3 +54,4 @@ ARG GITHUB_TOKEN
 ENV JIRA_API_TOKEN=${JIRA_API_TOKEN} \
     JIRA_API_USER=${JIRA_API_USER} \
     GITHUB_TOKEN=${GITHUB_TOKEN}
+
