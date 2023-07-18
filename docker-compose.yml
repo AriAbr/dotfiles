@@ -6,3 +6,5 @@ services:
     command: bash
     stdin_open: true
     tty: true
+    volumes:
+      - $HOME/.cache/devcontainer:/home/docker/.cache/devcontainer
