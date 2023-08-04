@@ -44,7 +44,5 @@ if [[ $- == *i* ]]; then
 	shopt -s cmdhist
 	PROMPT_COMMAND='history -a'
 
-	command -v "zoxide" &>/dev/null && eval "$(zoxide init bash)"
-
 	command -v "starship" &>/dev/null && eval "$(starship init bash)"
 fi

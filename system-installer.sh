@@ -22,8 +22,7 @@ install_prereqs() {
 		tmate \
 		tmux \
 		wget \
-		xclip \
-		zoxide
+		xclip
 
 	ln -svf "$(which fdfind)" ~/.local/bin/fd
 }
