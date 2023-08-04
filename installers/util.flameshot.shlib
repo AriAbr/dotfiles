@@ -1,6 +1,6 @@
 install(){
 if ! command -v flameshot &>/dev/null; then
-    sudo nala install --raw-dpkg -y \
+    sudo apt install -y \
         g++ \
         cmake \
         extra-cmake-modules \

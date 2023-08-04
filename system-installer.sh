@@ -8,7 +8,7 @@ export SCRIPT_DIR="$PWD"
 # note we don't need git since you already have it in order to have cloned this
 # repo
 install_prereqs() {
-	sudo nala install --raw-dpkg -y \
+	sudo apt install -y \
 		cargo \
 		fd-find \
 		feh \
@@ -30,7 +30,6 @@ install_prereqs() {
 
 center "Installing pre-reqs"
 spinner sudo apt update
-spinner sudo apt install -y nala
 spinner install_prereqs
 
 center "Installing modules"
@@ -72,7 +71,7 @@ center "Reloading terminal environment"
 # server)
 source ~/.bashrc
 
-# Create folders for devcontainer caching 
+# Create folders for devcontainer caching
 mkdir -p ~/.cache/devcontainer/{yarn,poetry,pre-commit}
 
 ./first-run.sh
