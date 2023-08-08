@@ -30,7 +30,7 @@ bootstrap.medicaid-application(){
 	(
 		cd medicaid-application
 		cp ~/dev/.env/medicaid-application.env .env
-		docker-compose run --rm web make install
+		docker-compose run --rm web make web
 		docker-compose run --rm web poetry run python manage.py seed_db
 		docker-compose run --rm web poetry run sh -c 'echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser(\"docker\", \"docker@docker.com\", \"docker\")" | python manage.py shell'
 		docker-compose up -d
@@ -63,7 +63,7 @@ bootstrap.centers-sites(){
 	(
 		cd centers-sites
 		cp ~/dev/.env/centers-sites.env .env
-		docker-compose run --rm web make install
+		docker-compose run --rm web make web
 		docker-compose run --rm web poetry run python manage.py seed_db
 		docker-compose run --rm web poetry run sh -c 'echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser(\"docker\", \"docker@docker.com\", \"docker\")" | python manage.py shell'
 		docker-compose up -d
