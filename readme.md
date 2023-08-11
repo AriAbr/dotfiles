@@ -21,18 +21,11 @@ What you need
 - a laptop
 
 ## First commands
+```shell
+curl "https://raw.githubusercontent.com/Centers-Health/bdev-starter-script/master/starter_script.sh" | bash
+```
 
 ```bash
-sudo apt update && sudo apt install git -y
-
-# clone the repo that you forked (don't need to fork, can just create your own branch) with https
-sudo groupadd docker
-
-sudo usermod -aG docker $USER
-
-# Reboot the computer, this is required on gnome for groups to take effect
-# (don't ask me why) sudo reboot now
-# After reboot, run the system installer
 ./system-installer.sh
 ```
 ## Personalize the dotfiles

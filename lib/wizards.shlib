@@ -1,24 +1,6 @@
 SCRIPT_DIR="$PWD"
 source "$SCRIPT_DIR"/lib/utils.shlib
 
-wizards.setupSSH(){
-if [[ ! -f ~/.ssh/id_rsa ]]; then
-	ssh-keygen -q -t rsa -N '' -f ~/.ssh/id_rsa <<<y >/dev/null 2>&1
-	ssh-add ~/.ssh/id_rsa
-	cat ~/.ssh/id_rsa.pub | xclip -sel clip
-    echom "SSH key created and copied to clipboard"
-    echom "Paste it in the 'key' field in the form that opens in your browser"
-    echom "Opening browser..."
-	xdg-open https://github.com/settings/ssh/new 2>/dev/null
-    echom ""
-	read -p "After you've saved the key, press enter to continue..."
-    echom "Great!"
-    echom "Now, let's setup your jira api token"
-else
-    echom "You have an ssh key already. (Make sure it has been added to github)"
-fi
-}
-
 wizards.setupJiraAPIKey(){
 pass jira_api_user > /dev/null 2>&1
 if [[ $? -ne 0 ]]; then

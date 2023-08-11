@@ -5,9 +5,6 @@ source "$SCRIPT_DIR"/lib/utils.shlib
 source "$SCRIPT_DIR"/lib/wizards.shlib
 source "$SCRIPT_DIR"/lib/bootstrap.shlib
 
-center "Setting up SSH keys"
-wizards.setupSSH
-
 center "Jira Setup"
 wizards.setupJiraAPIKey
 
