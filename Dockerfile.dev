@@ -1,4 +1,4 @@
-FROM ghcr.io/centers-health/dev:latest
+FROM ghcr.io/centers-health/dev:2
 
 # Install fzf
 RUN git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && \
