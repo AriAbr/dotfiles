@@ -77,11 +77,13 @@ alias manage="poetry run python manage.py"
 alias src="source ~/.bashrc"
 alias venv="source .venv/bin/activate"
 alias vsrc="src; venv"
+
 alias pyt="ptw -w -- --testmon --disable-warnings"
 alias pytc="ptw -w -- --testmon --disable-warnings --cache-clear --create-db"
 alias set-scroll-speed="bash <(curl -s http://www.nicknorton.net/mousewheel.sh)"
 alias vscode-update="wget 'https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64' -O /tmp/code_latest_amd64.deb && sudo dpkg -i /tmp/code_latest_amd64.deb && rm /tmp/code_latest_amd64.deb"
 # Based on https://github.com/phw/peek/issues/1094#issuecomment-1240497399
+
 open-i3-wksp() {
     i3-msg "workspace $@"
 }
@@ -118,6 +120,3 @@ alias sit="cd ~/dev/centers-sites"
 alias tal="cd ~/dev/talent-acquisition"
 alias wls="cd ~/dev/work-laptop-setup"
 alias i3config="cd ~/.config/i3"
-
-# Docker
-alias dex="docker exec -it"
