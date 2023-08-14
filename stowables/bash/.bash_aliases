@@ -68,3 +68,63 @@ alias po="dc exec dev poetry"
 alias ya="dc exec dev yarn"
 alias dj="dc exec dev poetry run python manage.py"
 alias manage="poetry run python manage.py"
+
+
+#========================================
+# Persoanl Aliases
+#========================================
+
+alias src="source ~/.bashrc"
+alias venv="source .venv/bin/activate"
+alias vsrc="src; venv"
+alias dmtest="dm test -w"
+alias dmtestc="dm test -w --cache-clear --create-db"
+alias pyt="ptw -w -- --testmon --disable-warnings"
+alias pytc="ptw -w -- --testmon --disable-warnings --cache-clear --create-db"
+alias set-scroll-speed="bash <(curl -s http://www.nicknorton.net/mousewheel.sh)"
+alias vscode-update="wget 'https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64' -O /tmp/code_latest_amd64.deb && sudo dpkg -i /tmp/code_latest_amd64.deb && rm /tmp/code_latest_amd64.deb"
+# Based on https://github.com/phw/peek/issues/1094#issuecomment-1240497399
+alias peek-22="peek -b ffmpeg"
+open-i3-wksp() {
+    i3-msg "workspace $@"
+}
+alias sensibo="xdg-open https://home.sensibo.com/#/pods && open-i3-wksp 🌎 I"
+alias punch="xdg-open https://app.propertime.co.il/MonthlyTimesheet.aspx && open-i3-wksp 🌎 I"
+alias timecard="xdg-open https://app.fingercheck.com/FingerCheck/SelfService/TimeCard/TimeCard.aspx && open-i3-wksp 🌎 I"
+alias word-stats="find . -type f -not -path \"./.venv/*\" -not -path \"./.git/*\" -exec cat {} \; | tr ' ' '\n' | sort | uniq -cd | sort -n"
+alias print-django-commands="find **/management/commands/** -type f -not -path \"./**/tests/*\" -not -path \"tests/*\" -not -path \"**/__pycache__/*\"  -not -path \"**/__init__.py\"  -printf \"%f\n\" | sort | uniq"
+
+
+# Projects
+alias cas="cd ~/dev/dynamics-cas"
+alias cap="cd ~/dev/client-aging-portal"
+alias cbs="cd ~/dev/custom-bootstrap-theme"
+alias clt="cd ~/dev/covid-lab-tracker"
+alias dyn="cd ~/dev/dynamics-py-core"
+alias dact="cd ~/dev/dynamics-py-actions"
+alias dcas="cd ~/dev/dynamics-py-cas"
+alias dfrm="cd ~/dev/dynamics-py-forms"
+alias dgfl="cd ~/dev/dynamics-py-gfl"
+alias djs="cd ~/dev/dynamics-py-js"
+alias dui="cd ~/dev/dynamics-py-ui"
+alias gql="cd ~/dev/dynamics-graph"
+alias lib="cd ~/dev/library"
+alias med="cd ~/dev/medicaid-application"
+alias men="cd ~/dev/mentor-program"
+alias sit="cd ~/dev/centers-sites"
+alias tal="cd ~/dev/talent-acquisition"
+# Projects w/o venv
+alias dmx="cd ~/.dev-matrix"
+alias wls="cd ~/dev/work-laptop-setup"
+
+
+alias i3config="cd ~/.config/i3"
+alias codex="code . && exit"
+alias dox="devcontainer open && exit"
+
+# Docker
+alias dc="docker-compose"
+alias dex="docker exec -it"
+
+# Git
+alias glb="git log --pretty='format:%C(auto)%h%d %B' --color=always | sed '/^$/d' | less -r"

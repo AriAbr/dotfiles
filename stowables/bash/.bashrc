@@ -1,6 +1,10 @@
+## vscode
+export VISUAL=~/code-wait.sh
+export EDITOR=~/code-wait.sh
+
 # Source global definitions
 if [ -f /etc/bashrc ]; then
-	. /etc/bashrc
+    . /etc/bashrc
 fi
 
 export LESS_TERMCAP_mb=$'\e[1;32m'
@@ -17,32 +21,32 @@ export TERM=xterm-256color
 
 export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border --sort 10000"
 if [[ $(command -v fd) != "" ]]; then
-	export FZF_DEFAULT_COMMAND="fd --hidden --follow --exclude '.git' --type f --type l"
-	export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-	export FZF_ALT_C_COMMAND="fd -t d . $HOME"
-	_fzf_compgen_path() {
-		fd . "$1"
-	}
-	_fzf_compgen_dir() {
-		fd --type d . "$1"
-	}
+    export FZF_DEFAULT_COMMAND="fd --hidden --follow --exclude '.git' --type f --type l"
+    export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+    export FZF_ALT_C_COMMAND="fd -t d . $HOME"
+    _fzf_compgen_path() {
+        fd . "$1"
+    }
+    _fzf_compgen_dir() {
+        fd --type d . "$1"
+    }
 else
-	export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden --glob "!{node_modules/*,.git/*,.venv/*}"'
+    export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden --glob "!{node_modules/*,.git/*,.venv/*}"'
 fi
 
 if [[ $- == *i* ]]; then
-	[ -e "$HOME/.bash_aliases" ] && source "$HOME/.bash_aliases"
-	[ -e "$HOME/.bash_functions" ] && source "$HOME/.bash_functions"
-
-	# Setup fzf keybindings
-	[ -f ~/.fzf.bash ] && source ~/.fzf.bash
-	shopt -s histappend
-	HISTFILESIZE=1000000
-	HISTSIZE=1000000
-	HISTCONTROL=ignoreboth
-	HISTIGNORE='ls:bg:fg:history'
-	shopt -s cmdhist
-	PROMPT_COMMAND='history -a'
-
-	command -v "starship" &>/dev/null && eval "$(starship init bash)"
+    [ -e "$HOME/.bash_aliases" ] && source "$HOME/.bash_aliases"
+    [ -e "$HOME/.bash_functions" ] && source "$HOME/.bash_functions"
+    
+    # Setup fzf keybindings
+    [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+    shopt -s histappend
+    HISTFILESIZE=1000000
+    HISTSIZE=1000000
+    HISTCONTROL=ignoreboth
+    HISTIGNORE='ls:bg:fg:history'
+    shopt -s cmdhist
+    PROMPT_COMMAND='history -a'
+    
+    command -v "starship" &>/dev/null && eval "$(starship init bash)"
 fi

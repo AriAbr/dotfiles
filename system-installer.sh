@@ -8,23 +8,23 @@ export SCRIPT_DIR="$PWD"
 # note we don't need git since you already have it in order to have cloned this
 # repo
 install_prereqs() {
-	sudo apt install -y \
-		cargo \
-		fd-find \
-		feh \
-		gpg \
-		libnotify-bin \
-		openssh-server \
-		python3-pip \
-		sshpass \
-		stow \
-		ffmpeg \
-		tmate \
-		tmux \
-		wget \
-		xclip
-
-	ln -svf "$(which fdfind)" ~/.local/bin/fd
+    sudo apt install -y \
+    cargo \
+    fd-find \
+    feh \
+    gpg \
+    libnotify-bin \
+    openssh-server \
+    python3-pip \
+    sshpass \
+    stow \
+    ffmpeg \
+    tmate \
+    tmux \
+    wget \
+    xclip
+    
+    ln -svf "$(which fdfind)" ~/.local/bin/fd
 }
 
 center "Installing pre-reqs"
@@ -43,6 +43,7 @@ spinner install core.pass
 spinner install core.docker
 spinner install apps.vscode
 spinner install apps.google-chrome
+spinner install apps.brave-browser
 spinner install prompts.starship
 spinner install fonts.firacode
 
@@ -56,11 +57,11 @@ center "Install node dependencies for scripts"
 spinner "(cd stowables/scripts-shared/.local/bin && yarn install)"
 
 spinner stow -v -R -d stowables/ -t "$HOME" \
-	bash \
-	git \
-	scripts-shared \
-	scripts-system \
-	starship
+bash \
+git \
+scripts-shared \
+scripts-system \
+starship
 
 center "Reloading terminal environment"
 # Reload your bashrc (note, this won't reload what's in bash_profile, so you may
@@ -73,7 +74,7 @@ mkdir -p ~/.cache/devcontainer/{yarn,poetry,pre-commit}
 
 ./first-run.sh
 if [[ ! -f ".first_run" ]]; then
-	touch .first_run
-	read -p "System will logout now, press enter..."
-	gnome-session-quit --no-prompt
+    touch .first_run
+    read -p "System will logout now, press enter..."
+    gnome-session-quit --no-prompt
 fi
