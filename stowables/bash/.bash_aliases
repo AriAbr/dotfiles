@@ -80,35 +80,23 @@ alias manage="poetry run python manage.py"
 alias src="source ~/.bashrc"
 alias venv="source .venv/bin/activate"
 alias vsrc="src; venv"
-
 alias pyt="ptw -w -- --testmon --disable-warnings"
 alias pytc="ptw -w -- --testmon --disable-warnings --cache-clear --create-db"
 alias set-scroll-speed="bash <(curl -s http://www.nicknorton.net/mousewheel.sh)"
 alias vscode-update="wget 'https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64' -O /tmp/code_latest_amd64.deb && sudo dpkg -i /tmp/code_latest_amd64.deb && rm /tmp/code_latest_amd64.deb"
 alias chrome-update="wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && sudo apt install ./google-chrome*.deb && rm google-chrome-stable_current_amd64.deb"
+# Apps
 # Based on https://github.com/phw/peek/issues/1094#issuecomment-1240497399
-
+alias peek-22="peek -b ffmpeg"
+open-i3-wksp() {
+    i3-msg "workspace $@"
+}
+alias sensibo="xdg-open https://home.sensibo.com/#/pods && open-i3-wksp 🌎 I"
+alias punch="xdg-open https://app.propertime.co.il/MonthlyTimesheet.aspx && open-i3-wksp 🌎 I"
+alias timecard="xdg-open https://app.fingercheck.com/FingerCheck/SelfService/TimeCard/TimeCard.aspx && open-i3-wksp 🌎 I"
 alias word-stats="find . -type f -not -path \"./.venv/*\" -not -path \"./.git/*\" -exec cat {} \; | tr ' ' '\n' | sort | uniq -cd | sort -n"
 alias print-django-commands="find **/management/commands/** -type f -not -path \"./**/tests/*\" -not -path \"tests/*\" -not -path \"**/__pycache__/*\"  -not -path \"**/__init__.py\"  -printf \"%f\n\" | sort | uniq"
-alias codex="code . && exit"
-alias dox="vscli open && exit"
-function dev_func() {
-    local start_dir=$(pwd)
-    if [ $# -eq 0 ]; then
-        devcontainer open
-        elif [ "$1" = "." ]; then
-        devcontainer "${@:2}"
-    else
-        local project_name=$(ls ~/dev | fzf --prompt="Select a project: ")
-        (cd ~/dev/"$project_name" && devcontainer "$@")
-    fi
-    cd "$start_dir"
-}
-alias dev='dev_func'
 
-# Apps
-alias peek-22="peek -b ffmpeg"
-alias sensibo="xdg-open https://home.sensibo.com/beta/#/ && open-i3-wksp 🌎 I"
 
 # Projects
 alias cas="cd ~/dev/dynamics-cas"
@@ -129,6 +117,18 @@ alias med="cd ~/dev/medicaid-application"
 alias men="cd ~/dev/mentor-program"
 alias sit="cd ~/dev/centers-sites"
 alias tal="cd ~/dev/talent-acquisition"
+# Projects w/o venv
+alias dmx="cd ~/.dev-matrix"
 alias wls="cd ~/dev/work-laptop-setup"
+
+
 alias i3config="cd ~/.config/i3"
-alias rgl="cd ~/.config/regolith3"
+alias codex="code . && exit"
+alias dox="vscli open && exit"
+
+# Docker
+alias dc="docker-compose"
+alias dex="docker exec -it"
+
+# Git
+alias glb="git log --pretty='format:%C(auto)%h%d %B' --color=always | sed '/^$/d' | less -r"
