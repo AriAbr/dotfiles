@@ -9,6 +9,8 @@ alias q="exit"
 alias grep="grep --color=auto"
 
 alias dc="docker-compose"
+alias dca='docker attach $(dc ps | grep -o -E "\w*-web\b")'
+alias da='docker attach $(docker ps --format "{{.Names}}" | grep -E ".*-web$" | fzf --prompt="Select a container: ")'
 alias dls="dyn-liveserve"
 
 # Git Log
