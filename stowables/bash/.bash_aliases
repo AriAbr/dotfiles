@@ -124,6 +124,3 @@ alias dox="devcontainer open && exit"
 # Docker
 alias dc="docker-compose"
 alias dex="docker exec -it"
-
-# Git
-alias glb="git log --pretty='format:%C(auto)%h%d %B' --color=always | sed '/^$/d' | less -r"
