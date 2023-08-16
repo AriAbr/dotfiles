@@ -84,16 +84,20 @@ alias pytc="ptw -w -- --testmon --disable-warnings --cache-clear --create-db"
 alias set-scroll-speed="bash <(curl -s http://www.nicknorton.net/mousewheel.sh)"
 alias vscode-update="wget 'https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64' -O /tmp/code_latest_amd64.deb && sudo dpkg -i /tmp/code_latest_amd64.deb && rm /tmp/code_latest_amd64.deb"
 # Based on https://github.com/phw/peek/issues/1094#issuecomment-1240497399
-alias peek-22="peek -b ffmpeg"
 open-i3-wksp() {
     i3-msg "workspace $@"
 }
-alias sensibo="xdg-open https://home.sensibo.com/#/pods && open-i3-wksp 🌎 I"
 alias punch="xdg-open https://app.propertime.co.il/MonthlyTimesheet.aspx && open-i3-wksp 🌎 I"
 alias timecard="xdg-open https://app.fingercheck.com/FingerCheck/SelfService/TimeCard/TimeCard.aspx && open-i3-wksp 🌎 I"
 alias word-stats="find . -type f -not -path \"./.venv/*\" -not -path \"./.git/*\" -exec cat {} \; | tr ' ' '\n' | sort | uniq -cd | sort -n"
 alias print-django-commands="find **/management/commands/** -type f -not -path \"./**/tests/*\" -not -path \"tests/*\" -not -path \"**/__pycache__/*\"  -not -path \"**/__init__.py\"  -printf \"%f\n\" | sort | uniq"
+alias codex="code . && exit"
+alias dox="devcontainer open && exit"
 
+# Apps
+alias peek-22="peek -b ffmpeg"
+alias sensibo="xdg-open https://home.sensibo.com/#/pods && open-i3-wksp 🌎 I"
+alias teams-brave="brave-browser --app=https://teams.microsoft.com"
 
 # Projects
 alias cas="cd ~/dev/dynamics-cas"
@@ -115,12 +119,7 @@ alias men="cd ~/dev/mentor-program"
 alias sit="cd ~/dev/centers-sites"
 alias tal="cd ~/dev/talent-acquisition"
 alias wls="cd ~/dev/work-laptop-setup"
-
-
 alias i3config="cd ~/.config/i3"
-alias codex="code . && exit"
-alias dox="devcontainer open && exit"
 
 # Docker
-alias dc="docker-compose"
 alias dex="docker exec -it"
