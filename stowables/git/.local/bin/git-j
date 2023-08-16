@@ -14,6 +14,19 @@ if ! [[ -x "$(command -v fzf)" ]]; then
 	exit
 fi
 
-BRANCH="$(jira_checkout 2>/dev/null | fzf --no-preview | cut -f1 -d':')"
+fifo=/tmp/git_j_fifo
+if [[ ! -p $fifo ]]; then
+	mkfifo $fifo
+fi
+
+CACHE_FILE=~/.cache/git_j
+touch $CACHE_FILE
+jira_checkout 2>/dev/null | tee $CACHE_FILE >$fifo &
+
+BRANCH="$(fzf --no-preview < <(
+	cat $CACHE_FILE $fifo | awk '!x[$0]++ {print $0; system("")}'
+) | cut -f1 -d':')"
 
 [ ! "$BRANCH" = "''" ] && (git jchk "$BRANCH") || echo Canceled
+
+rm $fifo
