@@ -114,8 +114,6 @@ alias med="cd ~/dev/medicaid-application"
 alias men="cd ~/dev/mentor-program"
 alias sit="cd ~/dev/centers-sites"
 alias tal="cd ~/dev/talent-acquisition"
-# Projects w/o venv
-alias dmx="cd ~/.dev-matrix"
 alias wls="cd ~/dev/work-laptop-setup"
 
 
