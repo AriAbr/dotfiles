@@ -28,13 +28,16 @@ COPY --chown=docker:docker . dotfiles/
 
 # Copy over ssh keys
 RUN mkdir $HOME/.ssh/ \
-    && cp -r dotfiles/keypairs/* $HOME/.ssh/ \ 
+    && cp -r dotfiles/keypairs/* $HOME/.ssh/ \
     && find $HOME/.ssh/ -type f ! -name "*.pub" -exec chmod 600 {} + \
     && chmod 644 $HOME/.ssh/*.pub
 
 RUN rm .bashrc
 
 # Stow Dotfiles
+WORKDIR /home/docker/dotfiles/stowables/scripts-shared/.local/bin
+RUN yarn install
+
 WORKDIR /home/docker/dotfiles
 RUN stow -R --dir=stowables --target=$HOME \
     bash \
@@ -42,8 +45,6 @@ RUN stow -R --dir=stowables --target=$HOME \
     scripts-shared \
     starship
 
-WORKDIR /home/docker/.local/bin
-RUN yarn install
 
 WORKDIR /app
 

@@ -52,7 +52,8 @@ center "Stowing Dotfiles"
 # - dyn-lde
 
 # Create directories to help with stow
-mkdir -p ~/.local/bin/node_modules
+center "Install node dependencies for scripts"
+spinner "(cd stowables/scripts-shared/.local/bin && yarn install)"
 
 spinner stow -v -R -d stowables/ -t "$HOME" \
 	bash \
@@ -60,9 +61,6 @@ spinner stow -v -R -d stowables/ -t "$HOME" \
 	scripts-shared \
 	scripts-system \
 	starship
-
-center "Install node dependencies for scripts"
-spinner "(cd ~/.local/bin && yarn install)"
 
 center "Reloading terminal environment"
 # Reload your bashrc (note, this won't reload what's in bash_profile, so you may
