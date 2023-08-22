@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Find django command names
+selected_command=$(find **/management/commands/** -maxdepth 0 -type f -not -path "**/tests/*" -not -path "**/__init__.py" -printf "%f\n" | sort | sed 's/\.py$//' | fzf)
+# If a filename was selected, run the command using poetry
+if [ -n "$selected_command" ]; then
+    echo "Running $selected_command..."
+    poetry run python manage.py "$selected_command" "$@"
+fi
