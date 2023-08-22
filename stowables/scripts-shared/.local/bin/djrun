@@ -1,9 +1,37 @@
 #!/bin/bash
 
-# Find django command names
-selected_command=$(find **/management/commands/** -maxdepth 0 -type f -not -path "**/tests/*" -not -path "**/__init__.py" -printf "%f\n" | sort | sed 's/\.py$//' | fzf)
-# If a filename was selected, run the command using poetry
+valid_commands=$(find . -path "**/management/commands/*.py" -type f -not -path "**/tests/*" -not -path "**/__init__.py" -printf "%f\n" | sort | uniq | sed 's/\.py$//')
+
+validate_command() {
+    local command="$1"
+    if ! echo "$valid_commands" | grep -q -w "^$command$"; then
+        echo "Error: '$command' is not a valid command."
+        exit 1
+    fi
+}
+
+select_command() {
+    selected_command=$(echo "$valid_commands" | fzf)
+    if [ -n "$selected_command" ]; then
+        echo "Command selected: $selected_command..."
+    fi
+}
+
+# If a command is provided as an argument, run it directly. Otherwise, search
+if [ "$#" -gt 0 ]; then
+    selected_command="$1"
+    shift # Remove the first argument
+    
+    if [ "$selected_command" == "--" ]; then
+        select_command
+    else
+        validate_command "$selected_command"
+    fi
+else
+    select_command
+fi
+
+# If a command was provided or selected, run it
 if [ -n "$selected_command" ]; then
-    echo "Running $selected_command..."
     poetry run python manage.py "$selected_command" "$@"
 fi
