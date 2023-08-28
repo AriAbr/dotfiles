@@ -8,20 +8,22 @@ ignored_directories=(
 )
 
 # Check for correct usage
-if [ $# -ne 1 ]; then
-    echo "Usage: $0 <search_pattern>"
+if [ $# -lt 1 ]; then
+    echo "Usage: $0 <search_pattern> <grep_arguments>"
     exit 1
 fi
 
-# Store the search pattern
+# Store the search pattern and grep arguments
 search_pattern="$1"
+shift
+grep_args="$@"
 
 # Generate the find command with ignored directories
 find_command="find ."
 for dir in "${ignored_directories[@]}"; do
     find_command+=" -type d -name '$dir' -prune -o"
 done
-find_command+=" -type f -exec grep --color=auto -nH '$search_pattern' {} +"
+find_command+=" -type f -exec grep --color=auto -nH $grep_args '$search_pattern' {} +"
 
 # Perform the search using find and grep
 eval "$find_command"
