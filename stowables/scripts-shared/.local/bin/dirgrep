@@ -4,7 +4,12 @@
 ignored_directories=(
     .venv
     .pytest_cache
+    __pycache__
     .node_modules
+    .flakeheaven_cache
+    node_modules
+    dist
+    .git
 )
 
 # Check for correct usage
