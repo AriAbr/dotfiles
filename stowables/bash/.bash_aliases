@@ -12,6 +12,8 @@ alias dc="docker-compose"
 alias dca='docker attach $(dc ps | grep -o -E "[a-zA-Z0-9-]*-web\b")'
 alias da='docker attach $(docker ps --format "{{.Names}}" | grep -E ".*-web$" | fzf --prompt="Select a container: ")'
 alias dls="dyn-liveserve"
+alias cdd='cd ~/dev/$(ls ~/dev|fzf --prompt="Select a project: ")'
+alias dev='devcontainer open ~/dev/$(ls ~/dev|fzf --prompt="Select a project: ")'
 
 # Git Log
 #------------
