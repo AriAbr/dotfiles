@@ -14,6 +14,8 @@ alias da='docker attach $(docker ps --format "{{.Names}}" | grep -E ".*-web$" | 
 alias dls="dyn-liveserve"
 alias cdd='cd ~/dev/$(ls ~/dev|fzf --prompt="Select a project: ")'
 alias dev='devcontainer open ~/dev/$(ls ~/dev|fzf --prompt="Select a project: ")'
+alias logx='docker logs -f $(docker ps --format {{.Names}} | fzf)'
+alias logs='dc logs -f --tail 20'
 
 # Git Log
 #------------
