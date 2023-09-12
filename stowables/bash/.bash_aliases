@@ -29,6 +29,7 @@ alias g="git status"
 alias gb="git branch"
 alias gc="git checkout"
 alias gcb="git checkout -b"
+alias grc="rollcheck"
 
 # Git Add
 alias ga="git add ."

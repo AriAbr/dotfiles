@@ -1,0 +1,89 @@
+#!/bin/bash
+
+get_current_git_ref() {
+    local ref
+    ref=$(git symbolic-ref --short HEAD 2>/dev/null || git describe --tags --exact-match 2>/dev/null || git rev-parse --short HEAD)
+    echo "$ref"
+}
+
+get_migrations_ahead() {
+    diff_input="$1"
+    echo $(git diff --name-only --diff-filter=AM ${diff_input} | grep "migrations.*\.py" | grep -v tests)
+}
+
+echo_migrations() {
+    local migrations="$1"
+    echo "$migrations" | tr ' ' '\n' | sed -e 's/^/\t- /'
+}
+
+read_default_yes() {
+    prompt="$1"
+    read -p "$prompt ([y]/n): " user_input
+    user_input=${user_input:-"y"}  # Set to "y" if empty
+    echo $user_input
+}
+
+revert_app_migrations() {
+    migrations="$1"
+    app="$2"
+    earliest_migration=$(echo "$migrations_ahead" | tr ' ' '\n' | grep "^$app/" | awk -F'/' '{print $0}' | sort | head -n 1)
+    migration_name=$(basename "$earliest_migration" .py)
+    migration_number="${migration_name%%_*}"
+    previous_migration=$(printf "%04d" $((10#$migration_number - 1)))
+    $migrate_cmd "$app" "$previous_migration"
+}
+
+revert_old_migrations() {
+    migrations_ahead=$(get_migrations_ahead ${target_ref}...${start_ref})
+    if [ -n "$migrations_ahead" ]; then
+        echo "Migrations on '${start_ref}' ahead of '${target_ref}':"
+        echo_migrations "$migrations_ahead"
+        if [ "$(read_default_yes "Do you want to roll back these migrations?")" = "y" ]; then
+            echo "Rolling back migrations..."
+            apps=$(echo "$migrations_ahead" | tr ' ' '\n' | awk -F'/' '{print $1}' | sort -u)
+            for app in $apps; do
+                revert_app_migrations "$migrations_ahead" "$app"
+            done
+            echo "Migrations rolled back successfully."
+        fi
+    fi
+}
+
+apply_new_migrations() {
+    migrations_ahead=$(get_migrations_ahead ${start_ref}...${target_ref})
+    if [ -n "$migrations_ahead" ]; then
+        echo "Migrations on '${target_ref}' ahead of '${start_ref}':"
+        echo_migrations "$migrations_ahead"
+        if [ "$(read_default_yes "Do you want to apply these migrations?")" = "y" ]; then
+            echo "Applying migrations..."
+            $migrate_cmd
+            echo "Migrations applied successfully."
+        fi
+    fi
+}
+
+
+start_ref=$(get_current_git_ref)
+git checkout "$@"
+target_ref=$(get_current_git_ref)
+git checkout - > /dev/null 2>&1
+
+quit() {
+    echo ""
+    echo "Returning to git ref '${start_ref}'"
+    git checkout "$start_ref" > /dev/null 2>&1
+    exit 1
+}
+
+trap quit SIGINT
+trap quit SIGTERM
+
+migrate_cmd="poetry run python manage.py migrate"
+# check if command is being run from regular terminal or docker container
+if [ -z "$(cat /proc/1/sched | head -n 1 | grep bash)" ]; then
+    migrate_cmd="devcontainer exec $migrate_cmd"
+fi
+
+revert_old_migrations
+git checkout "$target_ref" > /dev/null 2>&1
+apply_new_migrations
