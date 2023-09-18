@@ -97,7 +97,6 @@ alias timecard="xdg-open https://app.fingercheck.com/FingerCheck/SelfService/Tim
 alias word-stats="find . -type f -not -path \"./.venv/*\" -not -path \"./.git/*\" -exec cat {} \; | tr ' ' '\n' | sort | uniq -cd | sort -n"
 alias print-django-commands="find **/management/commands/** -type f -not -path \"./**/tests/*\" -not -path \"tests/*\" -not -path \"**/__pycache__/*\"  -not -path \"**/__init__.py\"  -printf \"%f\n\" | sort | uniq"
 
-
 # Projects
 alias cas="cd ~/dev/dynamics-cas"
 alias cap="cd ~/dev/client-aging-portal"
