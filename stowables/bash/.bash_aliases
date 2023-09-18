@@ -12,19 +12,6 @@ alias dc="docker-compose"
 alias dca='docker attach $(dc ps | grep -o -E "[a-zA-Z0-9-]*-web\b")'
 alias da='docker attach $(docker ps --format "{{.Names}}" | grep -E ".*-web$" | fzf --prompt="Select a container: ")'
 alias dls="dyn-liveserve"
-function dev_func() {
-    local start_dir=$(pwd)
-    if [ $# -eq 0 ]; then
-        devcontainer open
-    elif [ "$1" = "." ]; then
-        devcontainer "${@:2}"
-    else
-        local project_name=$(ls ~/dev | fzf --prompt="Select a project: ")
-        (cd ~/dev/"$project_name" && devcontainer "$@")
-    fi
-    cd "$start_dir"
-}
-alias dev='dev_func'
 
 # Git Log
 #------------
@@ -106,6 +93,19 @@ alias word-stats="find . -type f -not -path \"./.venv/*\" -not -path \"./.git/*\
 alias print-django-commands="find **/management/commands/** -type f -not -path \"./**/tests/*\" -not -path \"tests/*\" -not -path \"**/__pycache__/*\"  -not -path \"**/__init__.py\"  -printf \"%f\n\" | sort | uniq"
 alias codex="code . && exit"
 alias dox="devcontainer open && exit"
+function dev_func() {
+    local start_dir=$(pwd)
+    if [ $# -eq 0 ]; then
+        devcontainer open
+    elif [ "$1" = "." ]; then
+        devcontainer "${@:2}"
+    else
+        local project_name=$(ls ~/dev | fzf --prompt="Select a project: ")
+        (cd ~/dev/"$project_name" && devcontainer "$@")
+    fi
+    cd "$start_dir"
+}
+alias dev='dev_func'
 
 # Apps
 alias peek-22="peek -b ffmpeg"
