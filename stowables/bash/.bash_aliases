@@ -12,6 +12,19 @@ alias dc="docker-compose"
 alias dca='docker attach $(dc ps | grep -o -E "[a-zA-Z0-9-]*-web\b")'
 alias da='docker attach $(docker ps --format "{{.Names}}" | grep -E ".*-web$" | fzf --prompt="Select a container: ")'
 alias dls="dyn-liveserve"
+function dev_func() {
+    local start_dir=$(pwd)
+    if [ $# -eq 0 ]; then
+        devcontainer open
+    elif [ "$1" = "." ]; then
+        devcontainer "${@:2}"
+    else
+        local project_name=$(ls ~/dev | fzf --prompt="Select a project: ")
+        (cd ~/dev/"$project_name" && devcontainer "$@")
+    fi
+    cd "$start_dir"
+}
+alias dev='dev_func'
 
 # Git Log
 #------------
@@ -68,7 +81,6 @@ alias po="dc exec dev poetry"
 alias ya="dc exec dev yarn"
 alias dj="dc exec dev poetry run python manage.py"
 alias manage="poetry run python manage.py"
-
 
 #========================================
 # Persoanl Aliases
