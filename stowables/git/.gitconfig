@@ -29,7 +29,7 @@
 
 [alias]
     unstage = "reset HEAD --"
-    pam="!git checkout $(git branch | sed -e 's/\\*//' | fzf)"
+    pam="!rollcheck $(git branch | sed -e 's/\\*//' | fzf)"
 
 
 [diff]
