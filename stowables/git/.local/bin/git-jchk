@@ -20,11 +20,11 @@ OLD_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 
 # Checkout branch
 (
-	git checkout "$1"
+	rollcheck "$1"
 ) || (
-	git checkout master
+	rollcheck master
 	git reset --hard origin/master
-	git checkout -b "$1" && git push -u origin "$1"
+	rollcheck -b "$1" && git push -u origin "$1"
 )
 
 NEW_BRANCH=$(git rev-parse --abbrev-ref HEAD)
