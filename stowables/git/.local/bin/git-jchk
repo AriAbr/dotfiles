@@ -7,6 +7,13 @@ set -o errexit  # exit script on error
 set -o pipefail # exit when a script in a pipeline fails
 set -o nounset  # don't allow unset variables
 
+if [[ $(git status --porcelain=v1 2>/dev/null | wc -l) -gt 0 ]]; then
+	echo "You have unstaged changes. Exiting."
+	echo ""
+	git status
+	exit 1
+fi
+
 git fetch --all >/dev/null
 
 OLD_BRANCH=$(git rev-parse --abbrev-ref HEAD)
