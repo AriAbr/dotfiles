@@ -19,7 +19,7 @@ echo_migrations() {
 read_default_yes() {
     prompt="$1"
     read -p "$prompt ([y]/n): " user_input
-    user_input=${user_input:-"y"}  # Set to "y" if empty
+    user_input=${user_input:-"y"} # Set to "y" if empty
     echo $user_input
 }
 
@@ -62,16 +62,20 @@ apply_new_migrations() {
     fi
 }
 
-
 start_ref=$(get_current_git_ref)
-git checkout "$@"
+checkout_message=$(git checkout "$@" 2>&1)
+checkout_exit_status=$?
+if [ $checkout_exit_status -ne 0 ] && [[ "$checkout_message" == *"did not match any file(s) known to git"* ]]; then
+    echo "Git ref '$@' not found, creating a new branch"
+    git checkout -b "$@"
+fi
 target_ref=$(get_current_git_ref)
-git checkout - > /dev/null 2>&1
+git checkout - >/dev/null 2>&1
 
 quit() {
     echo ""
     echo "Returning to git ref '${start_ref}'"
-    git checkout "$start_ref" > /dev/null 2>&1
+    git checkout "$start_ref" >/dev/null 2>&1
     exit 1
 }
 
@@ -85,5 +89,5 @@ if [ -z "$(cat /proc/1/sched | head -n 1 | grep bash)" ]; then
 fi
 
 revert_old_migrations
-git checkout "$target_ref" > /dev/null 2>&1
+git checkout "$target_ref" >/dev/null 2>&1
 apply_new_migrations
