@@ -63,12 +63,7 @@ apply_new_migrations() {
 }
 
 start_ref=$(get_current_git_ref)
-checkout_message=$(git checkout "$@" 2>&1)
-checkout_exit_status=$?
-if [ $checkout_exit_status -ne 0 ] && [[ "$checkout_message" == *"did not match any file(s) known to git"* ]]; then
-    echo "Git ref '$@' not found, creating a new branch"
-    git checkout -b "$@"
-fi
+git checkout "$@" >/dev/null 2>&1
 target_ref=$(get_current_git_ref)
 git checkout - >/dev/null 2>&1
 

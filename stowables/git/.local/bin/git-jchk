@@ -19,13 +19,13 @@ git fetch --all >/dev/null
 OLD_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 
 # Checkout branch
-(
+if [ $(git branch --list $1) ]; then
 	rollcheck "$1"
-) || (
+else
 	rollcheck master
 	git reset --hard origin/master
 	rollcheck -b "$1" && git push -u origin "$1"
-)
+fi
 
 NEW_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 
