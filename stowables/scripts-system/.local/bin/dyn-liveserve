@@ -45,7 +45,7 @@ function _live-serve() {
 
 	# Static variables
 	PROJECT_PATH=~/dev
-	VENV_PATH=.venv/lib/python3.8/site-packages
+	VENV_PATH=.venv/lib/python3.11/site-packages
 
 	if ! [[ -x "$(command -v entr)" ]]; then
 		echo 'The program "entr" is required to use live-serve'
