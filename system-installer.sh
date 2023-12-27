@@ -44,6 +44,7 @@ spinner install core.docker
 spinner install apps.vscode
 spinner install apps.google-chrome
 spinner install apps.brave-browser
+spinner install apps.spotify
 spinner install prompts.starship
 spinner install fonts.firacode
 
@@ -71,6 +72,8 @@ source ~/.bashrc
 
 # Create folders for devcontainer caching
 mkdir -p ~/.cache/devcontainer/{yarn,poetry,pre-commit}
+
+./ari-post-install.sh
 
 ./first-run.sh
 if [[ ! -f ".first_run" ]]; then
