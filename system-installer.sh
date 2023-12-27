@@ -47,6 +47,7 @@ spinner install apps.brave-browser
 spinner install apps.spotify
 spinner install prompts.starship
 spinner install fonts.firacode
+spinner install contrib.i3-gnome
 
 center "Stowing Dotfiles"
 # TODO: setup system bins
