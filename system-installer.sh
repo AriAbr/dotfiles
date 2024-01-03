@@ -48,6 +48,7 @@ spinner install apps.spotify
 spinner install prompts.starship
 spinner install fonts.firacode
 spinner install contrib.i3-gnome
+spinner install contrib.regolith
 
 center "Stowing Dotfiles"
 # TODO: setup system bins
