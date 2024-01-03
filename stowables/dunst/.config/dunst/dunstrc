@@ -1,4 +1,5 @@
-# Based on https://smarttech101.com/how-to-configure-dunst-notifications-in-linux-with-images/
+# https://smarttech101.com/how-to-configure-dunst-notifications-in-linux-with-images/
+# https://github.com/catppuccin/dunst/tree/main
 
 [global]
     geometry = "400x5-30+20"
@@ -23,7 +24,7 @@
     horizontal_padding = 15
     text_icon_padding = 0
     frame_width = 3
-    frame_color = "#aaaaaa"
+    frame_color = "#89B4FA"
     gap_size = 0
     separator_color = frame
     sort = yes
@@ -66,20 +67,19 @@
     per_monitor_dpi = false
 
 [urgency_low]
-    background = "#E5E9F0"
-    foreground = "#2E3440"
+    background = "#1E1E2E"
+    foreground = "#CDD6F4"
     frame_color = "#2E3440"
     timeout = 10
 
 [urgency_normal]
-    background = "#2E3440"
-    foreground = "#BF616A"
-    frame_color = "#BF616A"
+    background = "#1E1E2E"
+    foreground = "#CDD6F4"
     highlight = "#BF616A"
     timeout = 10
 
 [urgency_critical]
-    background = "#ffffff"
-    foreground = "#900000"
-    frame_color = "#900000"
+    background = "#1E1E2E"
+    foreground = "#CDD6F4"
+    frame_color = "#FAB387"
     timeout = 0
