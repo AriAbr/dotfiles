@@ -10,9 +10,9 @@ dev_image:
 	cp ~/.wakatime.cfg .wakatime.cfg
 	
 	docker build -f Dockerfile.dev \
-		--build-arg JIRA_API_TOKEN=${JIRA_API_TOKEN} \
-		--build-arg JIRA_API_USER=${JIRA_API_USER} \
-		--build-arg GITHUB_TOKEN=${GITHUB_TOKEN} \
+		--build-arg JIRA_API_TOKEN="${JIRA_API_TOKEN}" \
+		--build-arg JIRA_API_USER="${JIRA_API_USER}" \
+		--build-arg GITHUB_TOKEN="${GITHUB_TOKEN}" \
 		-t dynamics-dev-image:latest .
 	
 	rm -rf keypairs
