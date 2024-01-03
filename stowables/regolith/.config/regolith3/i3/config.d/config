@@ -53,3 +53,9 @@ bindsym $mod+Shift+Control+s move container to workspace $wspSpotify
 # startup programs
 exec --no-startup-id tide-punch
 exec --no-startup-id teams
+
+# scratchpad
+# Make the currently focused window a scratchpad
+bindsym $mod+Ctrl+minus move scratchpad
+# Show the first scratchpad window
+bindsym $mod+Ctrl+plus scratchpad show
