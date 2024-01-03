@@ -110,7 +110,6 @@ alias dev='dev_func'
 # Apps
 alias peek-22="peek -b ffmpeg"
 alias sensibo="xdg-open https://home.sensibo.com/beta/#/ && open-i3-wksp 🌎 I"
-alias teams-brave="brave-browser --app=https://teams.microsoft.com"
 
 # Projects
 alias cas="cd ~/dev/dynamics-cas"
