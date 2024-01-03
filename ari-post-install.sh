@@ -9,6 +9,9 @@ sudo apt install autorandr -y
 # nala
 sudo apt install nala -y
 
+# yad
+sudo apt install yad -y
+
 # i3
 sudo apt install i3 brightnessctl gnome-screensaver feh -y
 mkdir ~/.config/i3

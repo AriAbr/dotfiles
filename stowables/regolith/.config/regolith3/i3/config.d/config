@@ -49,3 +49,7 @@ bindsym $mod+Control+s workspace $wspSpotify
 bindsym $mod+Shift+Control+i move container to workspace $wspBrowser
 bindsym $mod+Shift+Control+t move container to workspace $wspTeams
 bindsym $mod+Shift+Control+s move container to workspace $wspSpotify
+
+# startup programs
+exec --no-startup-id tide-punch
+exec --no-startup-id teams
