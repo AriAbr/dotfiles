@@ -65,7 +65,8 @@ git \
 scripts-shared \
 scripts-system \
 starship \
-regolith
+regolith \
+dunst
 
 center "Reloading terminal environment"
 # Reload your bashrc (note, this won't reload what's in bash_profile, so you may
