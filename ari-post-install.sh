@@ -12,6 +12,10 @@ sudo apt install nala -y
 # yad
 sudo apt install yad -y
 
+# dunst, remove rofication
+sudo apt install dunst -y
+sudo apt purge regolith-rofication
+
 # i3
 sudo apt install i3 brightnessctl gnome-screensaver feh -y
 mkdir ~/.config/i3
