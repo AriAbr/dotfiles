@@ -53,6 +53,7 @@ bindsym $mod+Shift+Control+s move container to workspace $wspSpotify
 # startup programs
 exec --no-startup-id tide-punch
 exec --no-startup-id teams
+exec --no-startup-id startctui
 set $connectedDisplay $(xrandr -q | grep ' connected' | head -n 1 | cut -d ' ' -f1)
 # Initial brightness change does not alwaysget picked up, so change to 0.5 first, then 1.0
 exec --no-startup-id system76-power profile battery && xrandr --output $connectedDisplay --brightness 0.5 && xrandr --output $connectedDisplay --brightness 1.0
