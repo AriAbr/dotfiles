@@ -2,6 +2,7 @@
 # enable floating windows
 for_window [class="com-sonicwall-nixconnect-ConnectApplication"] floating enable
 for_window [class="Yad"] floating enable
+for_window [title="Sign In - Google Accounts*"] floating enable
 
 # peek
 bindsym $mod+Print exec peek
