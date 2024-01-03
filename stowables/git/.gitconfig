@@ -45,3 +45,6 @@
 
 [mergetool "vscode"]
     cmd = code --wait $MERGED
+
+[submodule]
+	recurse = true

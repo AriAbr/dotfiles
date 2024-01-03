@@ -1,0 +1,8 @@
+# peek
+bindsym $mod+Print exec peek
+
+bindsym $mod+space exec $(rofi -run-list-command ". ~/.config/i3/list_aliases.sh" -run-command "/bin/bash -i -c '{cmd}'" -show combi -show-icons -display-combi 'Open or Run')
+
+# # i3expo
+exec_always --no-startup-id ~/.local/bin/i3expod
+bindsym $mod+x exec --no-startup-id "killall -s SIGUSR1 i3expod"

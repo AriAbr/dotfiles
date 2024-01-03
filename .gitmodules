@@ -1,0 +1,3 @@
+[submodule "stowables/regolith/.config/i3expo/i3expo-ng"]
+	path = stowables/regolith/.config/i3expo/i3expo-ng
+	url = git@github.com:AriAbr/i3expo-ng.git
