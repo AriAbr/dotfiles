@@ -84,9 +84,6 @@ alias vscode-update="wget 'https://code.visualstudio.com/sha/download?build=stab
 alias chrome-update="wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && sudo apt install ./google-chrome*.deb && rm google-chrome-stable_current_amd64.deb"
 # Based on https://github.com/phw/peek/issues/1094#issuecomment-1240497399
 
-open-i3-wksp() {
-    i3-msg "workspace $@"
-}
 alias punch="xdg-open https://app.propertime.co.il/MonthlyTimesheet.aspx && open-i3-wksp 🌎 I"
 alias timecard="xdg-open https://app.fingercheck.com/FingerCheck/SelfService/TimeCard/TimeCard.aspx && open-i3-wksp 🌎 I"
 alias word-stats="find . -type f -not -path \"./.venv/*\" -not -path \"./.git/*\" -exec cat {} \; | tr ' ' '\n' | sort | uniq -cd | sort -n"
