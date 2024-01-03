@@ -1,3 +1,8 @@
+
+# enable floating windows
+for_window [class="com-sonicwall-nixconnect-ConnectApplication"] floating enable
+for_window [class="Yad"] floating enable
+
 # peek
 bindsym $mod+Print exec peek
 
