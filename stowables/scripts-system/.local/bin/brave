@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+brave-browser && open-i3-wksp "🌎 I"
