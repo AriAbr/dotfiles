@@ -1,0 +1,5 @@
+# https://github.com/regolith-linux/regolith-i3xrocks-config/tree/master
+
+[TIME]
+command=time-us-il
+interval=1
