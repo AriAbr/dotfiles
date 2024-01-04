@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+bash -ic 'compgen -a'
