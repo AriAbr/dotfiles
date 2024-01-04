@@ -8,7 +8,7 @@ for_window [title="Sign In - Google Accounts*"] floating enable
 bindsym $mod+Print exec peek
 
 # launcher
-bindsym $mod+space exec $(rofi -run-list-command list-aliases -run-command "/bin/bash -i -c '{cmd}'" -show combi -show-icons -display-combi 'Open or Run')
+bindsym $mod+space exec rofi -run-list-command "compgen -ac" -run-command "bash -ic '{cmd}'" -show run -show-icons
 
 # flameshot
 bindsym Print exec flameshot gui
