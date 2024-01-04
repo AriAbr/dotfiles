@@ -63,3 +63,18 @@ exec --no-startup-id system76-power profile battery && xrandr --output $connecte
 bindsym $mod+Ctrl+minus move scratchpad
 # Show the first scratchpad window
 bindsym $mod+Ctrl+plus scratchpad show
+
+# shutdown mode
+set $shutdown_mode "Exit: [l]ogout, [r]eboot, [s]hutdown, slee[p], loc[k], [h]ibernate"
+mode $shutdown_mode {
+    bindsym l exec --no-startup-id i3-msg exit
+    bindsym r exec --no-startup-id systemctl reboot, mode "default"
+    bindsym s exec --no-startup-id systemctl shutdown, mode "default"
+    bindsym p exec --no-startup-id systemctl suspend, mode "default"
+    bindsym h exec --no-startup-id systemctl hibernate, mode "default"
+    bindsym k exec --no-startup-id xdg-screensaver lock, mode "default"
+    # bindsym k exec --no-startup-id i3lock, mode "default"
+    bindsym Escape mode "default"
+    bindsym Return mode "default"
+}
+bindsym $mod+Shift+x mode $shutdown_mode
