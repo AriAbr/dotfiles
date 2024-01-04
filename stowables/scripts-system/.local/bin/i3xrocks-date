@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+echo $(TZ=$(date +%Z) date +"%b %d, %Y")

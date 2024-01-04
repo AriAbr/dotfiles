@@ -1,5 +1,9 @@
 # https://github.com/regolith-linux/regolith-i3xrocks-config/tree/master
 
+[DATE]
+command=i3xrocks-date
+interval=1
+
 [TIME]
-command=time-us-il
+command=i3xrocks-time
 interval=1
