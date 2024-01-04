@@ -1,3 +1,4 @@
+set $alt Mod1
 
 # enable floating windows
 for_window [class="com-sonicwall-nixconnect-ConnectApplication"] floating enable
@@ -15,6 +16,9 @@ bindsym Print exec flameshot gui
 
 # toggle audio output
 bindsym $mod+Shift+v exec toggle-audio-output
+
+# toggle keybaord layout
+bindsym Mod1+Tab exec toggle-keyboard-layout
 
 # i3expo
 exec_always --no-startup-id ~/.local/bin/i3expod
