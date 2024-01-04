@@ -13,6 +13,9 @@ bindsym $mod+space exec rofi -run-list-command "compgen -ac" -run-command "bash 
 # flameshot
 bindsym Print exec flameshot gui
 
+# toggle audio output
+bindsym $mod+Shift+v exec toggle-audio-output
+
 # i3expo
 exec_always --no-startup-id ~/.local/bin/i3expod
 bindsym $mod+x exec --no-startup-id "killall -s SIGUSR1 i3expod"
