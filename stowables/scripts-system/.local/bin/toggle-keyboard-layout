@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-layout_options=($(gsettings get org.gnome.desktop.input-sources sources | awk -F"[,()']" '{for(i=2; i<NF; i+=2) print $i}'))
-selected_value=$(printf "%s\n" "${layout_options[@]}" | rofi -l 4 -dmenu -p "Select keyboard layout:")
-selected_index=$(printf "%s\n" "${layout_options[@]}" | awk -v val="$selected_value" '{if ($0 == val) print NR-1}')
+total_layouts=$(gsettings get org.gnome.desktop.input-sources sources | grep -o '(' | wc -l)
+current_layout=$(gsettings get org.gnome.desktop.input-sources current | awk '{print $2}')
+new_layout=$(( ($current_layout + 1) % $total_layouts ))
 
-gsettings set org.gnome.desktop.input-sources current $selected_index
+gsettings set org.gnome.desktop.input-sources current $new_layout
