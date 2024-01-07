@@ -8,7 +8,8 @@ export SCRIPT_DIR="$PWD"
 # note we don't need git since you already have it in order to have cloned this
 # repo
 install_prereqs() {
-    sudo apt install -y \
+    sudo apt install nala -y
+    sudo nala install -y \
     cargo \
     fd-find \
     feh \
