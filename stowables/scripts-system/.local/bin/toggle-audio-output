@@ -1,10 +1,21 @@
 #!/usr/bin/env bash
 
-source="$(pactl list short sinks | cut -f 2 | rofi -dpi 1 -l 4 -dmenu -p "Change audio output")";
-inputs="$(pactl list sink-inputs short | cut -f 1)";
+# Get the output from pactl list sinks
+sinks=$(pactl list sinks)
 
-for input in $inputs; do
-    pactl move-sink-input "$input" "$source";
-done
+# Extract the Description property from the output and create a list of options
+options=$(echo "$sinks" | awk -F': ' '/Description/ {print $2}')
 
-pactl set-default-sink "$source";
+# Use rofi to display the options and store the selected option in selected_output
+selected_description=$(echo "$options" | rofi -dmenu -l 5 -p "Select Output Device")
+
+# Extract the corresponding Name property based on the selected Description
+selected_output=$(echo "$sinks" | grep -B8 "Description: $selected_description" | awk '/Name/ {print $2}')
+
+if [ -n "$selected_output" ]; then
+    inputs="$(pactl list sink-inputs short | cut -f 1)"
+    for input in $inputs; do
+        pactl move-sink-input "$input" "$selected_output"
+    done
+    pactl set-default-sink "$selected_output"
+fi
