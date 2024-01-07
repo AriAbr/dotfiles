@@ -50,6 +50,9 @@ center "Stowing Dotfiles"
 center "Install node dependencies for scripts"
 spinner "(cd stowables/scripts-shared/.local/bin && yarn install)"
 
+# Delete .bashrc to prevent stow error
+rm ~/.bashrc
+
 spinner stow -v -R -d stowables/ -t "$HOME" \
 bash \
 git \
