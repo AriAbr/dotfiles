@@ -1,7 +1,7 @@
 set $alt Mod1
 
 # picom
-exec --no-startup-id picom -b
+exec_always --no-startup-id picom -b
 
 # enable floating windows
 for_window [class="com-sonicwall-nixconnect-ConnectApplication"] floating enable
