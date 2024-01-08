@@ -75,8 +75,6 @@ source ~/.bashrc
 # Create folders for devcontainer caching
 mkdir -p ~/.cache/devcontainer/{yarn,poetry,pre-commit}
 
-./ari-post-install.sh
-
 ./first-run.sh
 if [[ ! -f ".first_run" ]]; then
     touch .first_run
