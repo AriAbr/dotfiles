@@ -1,33 +1,26 @@
 #!/usr/bin/env bash
 
-# python3
-sudo apt install python3-pip python-is-python3 -y
+sudo apt install -y  \
+ python3-pip python-is-python3 \
+ autorandr \
+ nala \
+ yad \
+ dunst \
+ i3 brightnessctl gnome-screensaver feh \
+ i3status suckless-tools i3blocks rofi arandr \
+ gnome-flashback gnome-power-manager \
+ fonts-font-awesome acpi light
 
-# autorandr
-sudo apt install autorandr -y
-
-# nala
-sudo apt install nala -y
-
-# yad
-sudo apt install yad -y
-
-# dunst, remove rofication
-sudo apt install dunst -y
 sudo apt purge regolith-rofication
 
 # i3
-sudo apt install i3 brightnessctl gnome-screensaver feh -y
 mkdir ~/.config/i3
 git clone git@github.com:AriAbr/i3-setup.git ~/.config/i3
-sudo apt install i3status suckless-tools i3blocks rofi arandr -y
 
 # i3-gnome post install
-sudo apt install -y gnome-flashback gnome-power-manager
 gsettings set org.gnome.gnome-flashback desktop false
 
 # i3blocks
-sudo apt install fonts-font-awesome acpi light -y
 mkdir ~/.config/i3blocks
 git clone git@github.com:AriAbr/i3blocks-setup.git ~/.config/i3blocks
 
