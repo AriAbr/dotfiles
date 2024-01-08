@@ -74,10 +74,3 @@ source ~/.bashrc
 
 # Create folders for devcontainer caching
 mkdir -p ~/.cache/devcontainer/{yarn,poetry,pre-commit}
-
-./first-run.sh
-if [[ ! -f ".first_run" ]]; then
-    touch .first_run
-    read -p "System will logout now, press enter..."
-    gnome-session-quit --no-prompt
-fi
