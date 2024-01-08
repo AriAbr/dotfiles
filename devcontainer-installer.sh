@@ -60,10 +60,6 @@ git \
 scripts-shared \
 scripts-system \
 starship \
-regolith \
-dunst \
-rofi \
-picom \
 poetry
 
 center "Reloading terminal environment"
