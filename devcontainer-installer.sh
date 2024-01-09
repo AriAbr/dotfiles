@@ -59,7 +59,10 @@ git \
 scripts-shared \
 scripts-system \
 starship \
-poetry
+poetry \
+--adopt 
+# "Opposite" of --adopt, per https://unix.stackexchange.com/a/698982
+git reset --hard
 
 center "Reloading terminal environment"
 # Reload your bashrc (note, this won't reload what's in bash_profile, so you may
