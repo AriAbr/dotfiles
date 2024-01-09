@@ -13,8 +13,11 @@ fonts-font-awesome acpi light
 
 sudo apt purge regolith-rofication
 
-# install homebrew
+# homebrew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# vscli
+brew install michidk/tools/vscli
 
 # i3
 mkdir ~/.config/i3
