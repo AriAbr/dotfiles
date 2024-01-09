@@ -51,4 +51,6 @@ if [[ $- == *i* ]]; then
     command -v "starship" &>/dev/null && eval "$(starship init bash)"
 fi
 
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+if [ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]; then
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
