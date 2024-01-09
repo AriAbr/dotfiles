@@ -70,6 +70,3 @@ source ~/.bashrc
 
 # Create folders for devcontainer caching
 mkdir -p ~/.cache/devcontainer/{yarn,poetry,pre-commit}
-
-# pre-commit
-pip install pre-commit && pre-commit install-hooks
