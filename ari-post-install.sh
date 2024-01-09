@@ -16,7 +16,7 @@ sudo apt purge regolith-rofication
 # homebrew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-# vscli
+# vscli https://github.com/michidk/vscli
 brew install michidk/tools/vscli
 
 # i3
