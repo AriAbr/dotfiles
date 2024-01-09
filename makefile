@@ -7,6 +7,7 @@ GITHUB_TOKEN:=$(shell pass github_pat)
 dev_image:
 	mkdir -p keypairs
 	cp -r ~/.ssh/* keypairs/
+	cp ~/.wakatime.cfg .wakatime.cfg
 	
 	docker build -f Dockerfile.dev \
 		--build-arg JIRA_API_TOKEN=${JIRA_API_TOKEN} \
@@ -15,6 +16,7 @@ dev_image:
 		-t dynamics-dev-image:latest .
 	
 	rm -rf keypairs
+	rm .wakatime.cfg
 nvim-devcontainer:
 	docker build \
 		-t "nvim-dev:latest" \

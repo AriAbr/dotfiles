@@ -26,6 +26,9 @@ WORKDIR /home/docker
 # Copy Dotfiles
 COPY --chown=docker:docker . dotfiles/
 
+# Move wakatime.cfg to home directory
+RUN mv dotfiles/.wakatime.cfg $HOME/.wakatime.cfg
+
 # Copy over ssh keys
 RUN mkdir $HOME/.ssh/ \
     && cp -r dotfiles/keypairs/* $HOME/.ssh/ \
