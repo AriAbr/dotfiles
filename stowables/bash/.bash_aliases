@@ -87,12 +87,12 @@ alias chrome-update="wget https://dl.google.com/linux/direct/google-chrome-stabl
 alias word-stats="find . -type f -not -path \"./.venv/*\" -not -path \"./.git/*\" -exec cat {} \; | tr ' ' '\n' | sort | uniq -cd | sort -n"
 alias print-django-commands="find **/management/commands/** -type f -not -path \"./**/tests/*\" -not -path \"tests/*\" -not -path \"**/__pycache__/*\"  -not -path \"**/__init__.py\"  -printf \"%f\n\" | sort | uniq"
 alias codex="code . && exit"
-alias dox="devcontainer open && exit"
+alias dox="vscli open && exit"
 function dev_func() {
     local start_dir=$(pwd)
     if [ $# -eq 0 ]; then
         devcontainer open
-    elif [ "$1" = "." ]; then
+        elif [ "$1" = "." ]; then
         devcontainer "${@:2}"
     else
         local project_name=$(ls ~/dev | fzf --prompt="Select a project: ")
