@@ -1,8 +1,14 @@
 #!/usr/bin/env bash
 
-source ./lib/utils.shlib
-
 export SCRIPT_DIR="$PWD"
+
+# Exit if already have dotfiles folder (prevent conflict @ work)
+if [ -d "$SCRIPT_DIR/dotfiles" ]; then
+    echo "A 'dotfiles' subdirectory alreday exists. Exiting."
+    exit 0
+fi
+
+source ./lib/utils.shlib
 
 # Install system packages
 # note we don't need git since you already have it in order to have cloned this
