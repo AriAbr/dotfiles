@@ -8,3 +8,4 @@ stowables/keyd/.config/keyd/app.lock
 stowables/keyd/.config/keyd/app.log
 keyring.deb
 tags
+.vscode*
