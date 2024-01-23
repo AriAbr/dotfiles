@@ -14,7 +14,7 @@ source ./lib/utils.shlib
 # note we don't need git since you already have it in order to have cloned this
 # repo
 install_prereqs() {
-    sudo apt install -y \
+    sudo apt install -y --ignore-missing \
     cargo \
     fd-find \
     feh \
