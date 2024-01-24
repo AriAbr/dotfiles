@@ -54,14 +54,13 @@ center "Stowing Dotfiles"
 center "Install node dependencies for scripts"
 spinner "(cd stowables/scripts-shared/.local/bin && yarn install)"
 
-spinner stow -v -R -d stowables/ -t "$HOME" \
+spinner stow -v -d stowables/ -t "$HOME" --adopt \
 bash \
 git \
 scripts-shared \
 scripts-system \
 starship \
-poetry \
---adopt 
+poetry
 # "Opposite" of --adopt, per https://unix.stackexchange.com/a/698982
 git reset --hard
 
