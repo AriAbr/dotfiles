@@ -54,7 +54,7 @@ center "Stowing Dotfiles"
 center "Install node dependencies for scripts"
 spinner "(cd stowables/scripts-shared/.local/bin && yarn install)"
 
-spinner stow -v -d stowables/ -t "$HOME" --adopt \
+spinner sudo stow -v -d stowables/ -t "$HOME" --adopt \
 bash \
 git \
 scripts-shared \
