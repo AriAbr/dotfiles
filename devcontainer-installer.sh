@@ -43,7 +43,7 @@ center "Installing modules"
 # Shared
 spinner install core.gh
 spinner install core.fzf
-spinner sudo install prompts.starship
+spinner install prompts.starship
 spinner install fonts.firacode
 
 center "Stowing Dotfiles"
