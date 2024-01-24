@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 export SCRIPT_DIR="$PWD"
+export TERM="xterm-256color"
 
 # Exit if already have dotfiles folder (prevent conflict @ work)
 if [ -d "$SCRIPT_DIR/dotfiles" ]; then
