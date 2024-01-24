@@ -22,7 +22,6 @@ install_prereqs() {
     libnotify-bin \
     openssh-server \
     python3-pip \
-    python-is-python3 \
     sshpass \
     stow \
     ffmpeg \
