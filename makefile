@@ -17,6 +17,7 @@ dev_image:
 	
 	rm -rf keypairs
 	rm .wakatime.cfg
+	
 nvim-devcontainer:
 	docker build \
 		-t "nvim-dev:latest" \
@@ -26,4 +27,12 @@ nvim-devcontainer:
 		-f nvim-devcontainer/Dockerfile \
 		.
 
-.PHONY: nvim-devcontainer dev_image
+stow:
+	stow -v -R -d stowables/ -t $$HOME \
+		bash \
+		git \
+		scripts-shared \
+		scripts-system \
+		starship
+
+.PHONY: nvim-devcontainer dev_image stow
