@@ -24,9 +24,6 @@ mkdir -p ~/dev
 	git clone git@github.com:Centers-health/enviro.git || echom "Already cloned enviro"
 	(cd enviro/envs/lde && make install)
 
-	git clone git@github.com:Centers-health/enviro-signoz-deploy.git || echom "Already cloned enviro-signoz-deploy"
-	(cd enviro-signoz-deploy && docker-compose up -d)
-
 	center "Setup Core Projects"
 
 	center "Setting up medicaid-application"

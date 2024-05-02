@@ -41,6 +41,7 @@ spinner install core.node_18
 spinner install core.vpn
 spinner install core.pass
 spinner install core.docker
+spinner install core.jira
 spinner install apps.vscode
 spinner install apps.google-chrome
 spinner install apps.brave-browser

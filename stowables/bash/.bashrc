@@ -35,6 +35,7 @@ else
 fi
 
 if [[ $- == *i* ]]; then
+    [ -e "$HOME/.bash_secrets" ] && source "$HOME/.bash_secrets"
     [ -e "$HOME/.bash_aliases" ] && source "$HOME/.bash_aliases"
     [ -e "$HOME/.bash_functions" ] && source "$HOME/.bash_functions"
     
