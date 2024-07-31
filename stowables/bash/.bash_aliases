@@ -25,7 +25,6 @@ alias glb="git log --pretty='format:%C(auto)%h%d %B' --color=always | sed '/^$/d
 alias glst="git log --stat"
 alias gs="git show"
 alias gd="git diff"
-alias ghf="git hotfix"
 
 # Git Status / Checkout / Branch
 alias g="git status"
