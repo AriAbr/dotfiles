@@ -4,7 +4,6 @@ sudo apt install -y  \
 python3-pip python-is-python3 \
 autorandr \
 nala \
-yad \
 dunst \
 i3 brightnessctl gnome-screensaver feh \
 i3status suckless-tools i3blocks rofi arandr \

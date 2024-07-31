@@ -7,7 +7,6 @@ exec_always --no-startup-id picom -b
 for_window [class="com-sonicwall-nixconnect-ConnectApplication"] floating enable
 for_window [class="Org.gnome.Nautilus"] floating enable
 for_window [class="Gnome-control-center"] floating enable
-for_window [class="Yad"] floating enable
 for_window [title="Sign In - Google Accounts*"] floating enable
 
 # peek
