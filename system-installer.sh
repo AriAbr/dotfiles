@@ -9,7 +9,6 @@ export SCRIPT_DIR="$PWD"
 # repo
 install_prereqs() {
     sudo apt install -y \
-    cargo \
     fd-find \
     feh \
     gpg \
@@ -18,9 +17,6 @@ install_prereqs() {
     python3-pip \
     sshpass \
     stow \
-    ffmpeg \
-    tmate \
-    tmux \
     wget \
     xclip
     
