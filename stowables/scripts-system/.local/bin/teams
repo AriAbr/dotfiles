@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-brave-browser --app=https://teams.microsoft.com --new-window && open-i3-wksp "💬 T"
