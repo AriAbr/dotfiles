@@ -33,9 +33,6 @@ git clone git@github.com:AriAbr/i3blocks-setup.git ~/.config/i3blocks
 # i3-volume
 git clone https://github.com/hastinbe/i3-volume.git ~/.config/i3-volume
 
-# i3expo-ng
-(cd ~/dynamics-dotfiles/stowables/regolith/.config/i3expo/i3expo-ng && make && make install)
-
 # rofi theme
 rofi-theme-selector
 

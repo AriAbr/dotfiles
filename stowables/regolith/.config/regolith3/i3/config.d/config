@@ -25,10 +25,6 @@ bindsym $mod+Shift+v exec toggle-audio-output
 # toggle keybaord layout
 bindsym Mod1+Tab exec toggle-keyboard-layout
 
-# i3expo
-exec_always --no-startup-id ~/.local/bin/i3expod
-bindsym $mod+x exec --no-startup-id "killall -s SIGUSR1 i3expod"
-
 # set background images
 set $bg_left     ~/.config/i3/backgrounds/smoky3.jpg
 set $bg_middle   ~/.config/i3/backgrounds/smoky1.jpg
