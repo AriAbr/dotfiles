@@ -1,23 +1,5 @@
 #!/usr/bin/env bash
 
-sudo apt install -y  \
-python3-pip python-is-python3 \
-autorandr \
-nala \
-dunst \
-i3 brightnessctl gnome-screensaver feh \
-i3status suckless-tools i3blocks rofi arandr \
-gnome-flashback gnome-power-manager \
-fonts-font-awesome acpi light
-
-sudo apt purge regolith-rofication
-
-# homebrew
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
-# vscli https://github.com/michidk/vscli
-brew install michidk/tools/vscli
-
 # i3
 mkdir ~/.config/i3
 git clone git@github.com:AriAbr/i3-setup.git ~/.config/i3

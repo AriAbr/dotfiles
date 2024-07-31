@@ -1,0 +1,4 @@
+install(){
+	# vscli https://github.com/michidk/vscli
+	brew install michidk/tools/vscli
+}
