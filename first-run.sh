@@ -3,7 +3,6 @@
 SCRIPT_DIR="$PWD"
 source "$SCRIPT_DIR"/lib/utils.shlib
 source "$SCRIPT_DIR"/lib/wizards.shlib
-source "$SCRIPT_DIR"/lib/bootstrap.shlib
 
 center "Github PAT Setup"
 wizards.setupPAT
