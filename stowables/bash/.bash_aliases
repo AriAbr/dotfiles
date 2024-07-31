@@ -11,7 +11,6 @@ alias grep="grep --color=auto"
 alias dc="docker-compose"
 alias dca='docker attach $(dc ps | grep -o -E "[a-zA-Z0-9-]*-web\b")'
 alias da='docker attach $(docker ps --format "{{.Names}}" | grep -E ".*-web$" | fzf --prompt="Select a container: ")'
-alias dls="dyn-liveserve"
 alias cdd='cd ~/dev/$(ls ~/dev|fzf --prompt="Select a project: ")'
 alias dev='devcontainer open ~/dev/$(ls ~/dev|fzf --prompt="Select a project: ")'
 alias logx='docker logs -f $(docker ps --format {{.Names}} | fzf)'
@@ -64,7 +63,6 @@ alias gmt="git mergetool"
 # source configs
 #========================================
 alias sbashrc="source ~/.bashrc"
-alias clone='f() { (cd ~/dev; git clone git@github.com:Centers-Health/$1.git;);}; f'
 
 alias pc="dc exec dev pre-commit run"
 alias pca="dc exec dev pre-commit run --all-files"
@@ -78,13 +76,7 @@ alias manage="poetry run python manage.py"
 #========================================
 
 alias src="source ~/.bashrc"
-alias venv="source .venv/bin/activate"
-alias vsrc="src; venv"
-alias pyt="ptw -w -- --testmon --disable-warnings"
-alias pytc="ptw -w -- --testmon --disable-warnings --cache-clear --create-db"
-alias set-scroll-speed="bash <(curl -s http://www.nicknorton.net/mousewheel.sh)"
 alias vscode-update="wget 'https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64' -O /tmp/code_latest_amd64.deb && sudo dpkg -i /tmp/code_latest_amd64.deb && rm /tmp/code_latest_amd64.deb"
-alias chrome-update="wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && sudo apt install ./google-chrome*.deb && rm google-chrome-stable_current_amd64.deb"
 # Apps
 # Based on https://github.com/phw/peek/issues/1094#issuecomment-1240497399
 alias peek-22="peek -b ffmpeg"
@@ -92,34 +84,10 @@ open-i3-wksp() {
     i3-msg "workspace $@"
 }
 alias sensibo="xdg-open https://home.sensibo.com/#/pods && open-i3-wksp 🌎 I"
-alias punch="xdg-open https://app.propertime.co.il/MonthlyTimesheet.aspx && open-i3-wksp 🌎 I"
-alias timecard="xdg-open https://app.fingercheck.com/FingerCheck/SelfService/TimeCard/TimeCard.aspx && open-i3-wksp 🌎 I"
-alias word-stats="find . -type f -not -path \"./.venv/*\" -not -path \"./.git/*\" -exec cat {} \; | tr ' ' '\n' | sort | uniq -cd | sort -n"
-alias print-django-commands="find **/management/commands/** -type f -not -path \"./**/tests/*\" -not -path \"tests/*\" -not -path \"**/__pycache__/*\"  -not -path \"**/__init__.py\"  -printf \"%f\n\" | sort | uniq"
 
 # Projects
-alias cas="cd ~/dev/dynamics-cas"
-alias cap="cd ~/dev/client-aging-portal"
-alias cbs="cd ~/dev/custom-bootstrap-theme"
-alias clt="cd ~/dev/covid-lab-tracker"
-alias dyn="cd ~/dev/dynamics-py-core"
-alias dact="cd ~/dev/dynamics-py-actions"
-alias dcas="cd ~/dev/dynamics-py-cas"
-alias dfrm="cd ~/dev/dynamics-py-forms"
-alias dgfl="cd ~/dev/dynamics-py-gfl"
-alias djs="cd ~/dev/dynamics-py-js"
-alias dot="cd ~/dynamics-dotfiles"
-alias dui="cd ~/dev/dynamics-py-ui"
-alias gql="cd ~/dev/dynamics-graph"
-alias lib="cd ~/dev/library"
-alias med="cd ~/dev/medicaid-application"
-alias men="cd ~/dev/mentor-program"
-alias sit="cd ~/dev/centers-sites"
-alias tal="cd ~/dev/talent-acquisition"
-# Projects w/o venv
-alias dmx="cd ~/.dev-matrix"
-alias wls="cd ~/dev/work-laptop-setup"
-
+alias dot="cd ~/dotfiles"
+alias ezn="cd ~/eznashdb"
 
 alias i3config="cd ~/.config/i3"
 alias codex="code . && exit"
