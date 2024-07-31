@@ -34,12 +34,9 @@ spinner install core.gh
 spinner install core.fzf
 spinner install util.flameshot
 spinner install core.node_18
-spinner install core.vpn
 spinner install core.pass
 spinner install core.docker
-spinner install core.jira
 spinner install apps.vscode
-spinner install apps.google-chrome
 spinner install apps.brave-browser
 spinner install apps.spotify
 spinner install prompts.starship
@@ -48,9 +45,6 @@ spinner install contrib.i3-gnome
 spinner install contrib.regolith
 
 center "Stowing Dotfiles"
-# TODO: setup system bins
-# - dyn-liveserve
-# - dyn-lde
 
 # Create directories to help with stow
 center "Install node dependencies for scripts"
