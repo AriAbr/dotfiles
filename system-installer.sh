@@ -58,7 +58,7 @@ center "Stowing Dotfiles"
 
 # Create directories to help with stow
 center "Install node dependencies for scripts"
-spinner "(cd stowables/scripts-shared/.local/bin && yarn install)"
+spinner "(cd stowables/scripts-shared/.local/bin)"
 
 # Delete files to prevent stow error
 rm ~/.bashrc
