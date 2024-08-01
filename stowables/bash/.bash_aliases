@@ -85,8 +85,8 @@ open-i3-wksp() {
 alias sensibo="xdg-open https://home.sensibo.com/#/pods && open-i3-wksp 🌎 I"
 
 # Projects
-alias dot="cd ~/dotfiles"
-alias ezn="cd ~/eznashdb"
+alias dot="cd ~/dev/dotfiles"
+alias ezn="cd ~/dev/eznashdb"
 
 alias i3config="cd ~/.config/i3"
 alias codex="code . && exit"
