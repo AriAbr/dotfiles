@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
 
-# i3
-mkdir ~/.config/i3
-git clone git@github.com:AriAbr/i3-setup.git ~/.config/i3
-
 # i3-gnome post install
 gsettings set org.gnome.gnome-flashback desktop false
 

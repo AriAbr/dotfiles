@@ -72,6 +72,7 @@ scripts-system \
 starship \
 regolith \
 dunst \
+i3 \
 rofi \
 picom
 
