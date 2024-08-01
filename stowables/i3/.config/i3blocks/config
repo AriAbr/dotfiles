@@ -1,0 +1,53 @@
+# [MEM]
+# # RAM
+# label=🐏
+# command=free -h | awk '/Mem:/ { printf("%5s/%s \n", $3, $2) }'
+# interval=1
+# color=#a8c3ed
+
+# [DISK]
+# label=💾
+# command=df -h / | awk '/\//{ printf("%4s/%s \n", $4, $2) }'
+# interval=2
+# color=#a8c3ed
+
+[LANGUAGE]
+label=⌨
+command=~/.config/i3blocks/language/language.sh
+# Set interval to once, and refresh manually on laguage toggle
+interval=once
+signal=10
+
+[BRIGHTNESS]
+label=🔆
+command=echo "scale=0 ; 100 * $(brightnessctl g) / $(brightnessctl m)" | bc | sed 's/$/%/'
+interval=3
+signal=1
+color=#a8c3ed
+separator_block_width=10
+markup=pango
+
+[VOLUME]
+label=🔈
+command=~/.config/i3blocks/volume
+interval=repeat
+signal=2
+color=#a8c3ed
+separator_block_width=10
+markup=pango
+
+[BATTERY]
+command=~/.config/i3blocks/battery/battery.py
+markup=pango
+interval=1
+color=#a8c3ed
+
+[DATE]
+command=~/.config/i3blocks/date/date.sh
+interval=1
+color=#a8c3ed
+
+[TIME]
+command=~/.config/i3blocks/time/time.sh
+interval=1
+color=#a8c3ed

@@ -3,10 +3,6 @@
 # i3-gnome post install
 gsettings set org.gnome.gnome-flashback desktop false
 
-# i3blocks
-mkdir ~/.config/i3blocks
-git clone git@github.com:AriAbr/i3blocks-setup.git ~/.config/i3blocks
-
 # i3-volume
 git clone https://github.com/hastinbe/i3-volume.git ~/.config/i3-volume
 
