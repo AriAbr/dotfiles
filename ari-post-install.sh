@@ -3,9 +3,6 @@
 # i3-gnome post install
 gsettings set org.gnome.gnome-flashback desktop false
 
-# i3-volume
-git clone https://github.com/hastinbe/i3-volume.git ~/.config/i3-volume
-
 # rofi theme
 rofi-theme-selector
 
