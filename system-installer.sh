@@ -49,6 +49,7 @@ spinner install core.docker
 spinner install apps.vscode
 spinner install apps.brave-browser
 spinner install apps.spotify
+spinner install apps.onlyoffice
 spinner install prompts.starship
 spinner install cli.vscli
 spinner install fonts.firacode
