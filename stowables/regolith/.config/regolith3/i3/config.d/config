@@ -30,14 +30,6 @@ set $bg_middle   ~/.config/i3/backgrounds/smoky1.jpg
 set $bg_right    ~/.config/i3/backgrounds/smoky2.jpg
 exec_always --no-startup-id feh --bg-fill $bg_right $bg_left $bg_middle
 
-# Teams startup
-# Before browser to override browser workspace assignment
-set $wspTeams "💬 T"
-assign [class="Teams"] $wspTeams
-assign [class="teams-for-linux"] $wspTeams
-assign [title="teams.microsoft.com"] $wspTeams
-workspace $wspTeams output eDP-1
-
 # Browser startup
 set $wspBrowser "🌎 I"
 assign [class="Brave-browser"] $wspBrowser
@@ -51,16 +43,11 @@ workspace $wspSpotify output eDP-1
 
 # App workspace keybindings
 bindsym $mod+Control+i workspace $wspBrowser
-bindsym $mod+Control+t workspace $wspTeams
 bindsym $mod+Control+s workspace $wspSpotify
 bindsym $mod+Shift+Control+i move container to workspace $wspBrowser
-bindsym $mod+Shift+Control+t move container to workspace $wspTeams
 bindsym $mod+Shift+Control+s move container to workspace $wspSpotify
 
 # startup programs
-exec --no-startup-id tide-punch
-exec --no-startup-id teams
-exec --no-startup-id startctui
 set $connectedDisplay $(xrandr -q | grep ' connected' | head -n 1 | cut -d ' ' -f1)
 # Initial brightness change does not always get picked up, so change to 0.5 first, then 1.0
 exec --no-startup-id system76-power profile battery && xrandr --output $connectedDisplay --brightness 0.5 && xrandr --output $connectedDisplay --brightness 1.0
