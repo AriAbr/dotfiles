@@ -26,7 +26,8 @@ install_prereqs() {
     i3 brightnessctl gnome-screensaver feh \
     i3status suckless-tools i3blocks rofi arandr \
     gnome-flashback gnome-power-manager \
-    fonts-font-awesome acpi light
+    fonts-font-awesome acpi light \
+    kde-standard
     
     ln -svf "$(which fdfind)" ~/.local/bin/fd
 }
