@@ -12,22 +12,22 @@ install_prereqs() {
     fd-find \
     feh \
     gpg \
-    libnotify-bin \
     openssh-server \
     python3-pip \
     sshpass \
     stow \
     wget \
     xclip \
-    python3-pip python-is-python3 \
-    autorandr \
     nala \
-    dunst \
-    i3 brightnessctl gnome-screensaver feh \
-    i3status suckless-tools i3blocks rofi arandr \
-    gnome-flashback gnome-power-manager \
-    fonts-font-awesome acpi light \
     kde-standard
+    # libnotify-bin \
+    # python3-pip python-is-python3 \
+    # autorandr \
+    # dunst \
+    # i3 brightnessctl gnome-screensaver feh \
+    # i3status suckless-tools i3blocks rofi arandr \
+    # gnome-flashback gnome-power-manager \
+    # fonts-font-awesome acpi light \
     
     ln -svf "$(which fdfind)" ~/.local/bin/fd
 }
@@ -43,24 +43,24 @@ spinner install core.gh
 spinner install core.fzf
 spinner install core.homebrew
 spinner install util.flameshot
-spinner install core.node_18
+# spinner install core.node_18
 spinner install core.pass
 spinner install core.docker
 spinner install apps.vscode
 spinner install apps.brave-browser
 spinner install apps.spotify
-spinner install apps.onlyoffice
+# spinner install apps.onlyoffice
 spinner install prompts.starship
 spinner install cli.vscli
 spinner install fonts.firacode
-spinner install contrib.i3-gnome
-spinner install contrib.regolith
+# spinner install contrib.i3-gnome
+# spinner install contrib.regolith
 
 center "Stowing Dotfiles"
 
 # Create directories to help with stow
-center "Install node dependencies for scripts"
-spinner "(cd stowables/scripts-shared/.local/bin)"
+# center "Install node dependencies for scripts"
+# spinner "(cd stowables/scripts-shared/.local/bin)"
 
 # Delete files to prevent stow error
 rm ~/.bashrc
@@ -72,11 +72,11 @@ git \
 scripts-shared \
 scripts-system \
 starship \
-regolith \
-dunst \
-i3 \
-rofi \
-picom
+# regolith \
+# dunst \
+# i3 \
+# rofi \
+# picom
 
 center "Reloading terminal environment"
 # Reload your bashrc (note, this won't reload what's in bash_profile, so you may

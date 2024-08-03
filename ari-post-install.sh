@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
 # i3-gnome post install
-gsettings set org.gnome.gnome-flashback desktop false
+# gsettings set org.gnome.gnome-flashback desktop false
 
 # rofi theme
-rofi-theme-selector
+# rofi-theme-selector
 
 # disable ipv6
 disable_ipv6_sysctl() {
@@ -15,9 +15,9 @@ net.ipv6.conf.lo.disable_ipv6 = 1
 EOL
 }
 
-activate_sysctl() {
-    sudo sysctl -p
-}
+# activate_sysctl() {
+#     sudo sysctl -p
+# }
 
 disable_ipv6_sysctl
-activate_sysctl
+# activate_sysctl
