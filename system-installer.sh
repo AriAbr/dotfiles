@@ -63,8 +63,8 @@ center "Stowing Dotfiles"
 # spinner "(cd stowables/scripts-shared/.local/bin)"
 
 # Delete files to prevent stow error
-rm ~/.bashrc
-rm ~/.gitconfig
+rm ~/.bashrc 2> /dev/null
+rm ~/.gitconfig 2> /dev/null
 
 spinner stow -v -R -d stowables/ -t "$HOME" \
 bash \
