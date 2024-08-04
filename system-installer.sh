@@ -18,8 +18,8 @@ install_prereqs() {
     stow \
     wget \
     xclip \
-    nala \
-    kde-standard
+    nala
+    # kde-standard
     # libnotify-bin \
     # python3-pip python-is-python3 \
     # autorandr \
@@ -63,8 +63,8 @@ center "Stowing Dotfiles"
 # spinner "(cd stowables/scripts-shared/.local/bin)"
 
 # Delete files to prevent stow error
-rm ~/.bashrc 2> /dev/null
-rm ~/.gitconfig 2> /dev/null
+rm -f ~/.bashrc
+rm -f ~/.gitconfig
 
 spinner stow -v -R -d stowables/ -t "$HOME" \
 bash \
