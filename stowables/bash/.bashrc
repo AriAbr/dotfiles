@@ -33,6 +33,7 @@ if [[ $(command -v fd) != "" ]]; then
 else
     export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden --glob "!{node_modules/*,.git/*,.venv/*}"'
 fi
+source /usr/share/doc/fzf/examples/key-bindings.bash
 
 if [[ $- == *i* ]]; then
     [ -e "$HOME/.bash_secrets" ] && source "$HOME/.bash_secrets"
