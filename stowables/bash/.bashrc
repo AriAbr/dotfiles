@@ -56,3 +56,10 @@ fi
 if [ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]; then
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
+
+eval $(keychain -q --eval id_ed25519)
+
+# Source Rust environment (Cargo)
+if [ -f "$HOME/.cargo/env" ]; then
+    . "$HOME/.cargo/env"
+fi

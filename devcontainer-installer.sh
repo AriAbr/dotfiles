@@ -24,6 +24,7 @@ install_prereqs() {
     openssh-server \
     python3-pip \
     sshpass \
+    keychain \
     stow \
     ffmpeg \
     tmate \
