@@ -2,10 +2,10 @@ install() {
     # Based on
     # - https://github.com/cli/cli/blob/trunk/docs/install_linux.md
     # - https://github.com/cli/cli/discussions/6222#discussioncomment-3840641
-    sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 23F3D4EA75716059
     curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg && \
     sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg && \
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null && \
-    sudo apt update -v && \
-    sudo apt install --no-install-recommends gh -y
+    sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 23F3D4EA75716059 && \
+    sudo apt update --allow-unauthenticated && \
+    sudo apt install gh -y
 }
