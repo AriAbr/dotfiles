@@ -33,7 +33,9 @@ if [[ $(command -v fd) != "" ]]; then
 else
     export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden --glob "!{node_modules/*,.git/*,.venv/*}"'
 fi
-source /usr/share/doc/fzf/examples/key-bindings.bash
+if [ -f /usr/share/doc/fzf/examples/key-bindings.bash ]; then
+    source /usr/share/doc/fzf/examples/key-bindings.bash
+fi
 
 if [[ $- == *i* ]]; then
     [ -e "$HOME/.bash_secrets" ] && source "$HOME/.bash_secrets"
@@ -57,7 +59,9 @@ if [ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]; then
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
 
-eval $(keychain -q --eval id_ed25519)
+if [ -f ~/.ssh/id_ed25519 ]; then
+    eval $(keychain -q --eval id_ed25519)
+fi
 
 # Source Rust environment (Cargo)
 if [ -f "$HOME/.cargo/env" ]; then
